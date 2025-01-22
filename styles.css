@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input, button {
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+}
+
+#data-container {
+    margin-top: 20px;
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
