@@ -190,6 +190,8 @@ const scores = [
         layout: {
             padding: {
                 top: 0, // 그래프 위쪽 여백
+                left: 5,
+                right: 5,
                 bottom: 0 // 그래프 아래쪽 여백
             }
         }
