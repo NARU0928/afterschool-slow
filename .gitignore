@@ -1,0 +1,11 @@
+# 환경 변수 파일
+.env
+
+# Node.js 의존성 폴더
+node_modules/
+
+# 빌드 결과물 폴더
+dist/
+
+# MacOS에서 생성되는 시스템 파일
+.DS_Store
