@@ -1,51 +1,67 @@
 document.getElementById('fetch-data').addEventListener('click', async () => {
     const personalNumber = document.getElementById('personal-number').value;
-    const apiKey = 'YOUR_GOOGLE_SHEETS_API_KEY'; // API Key 설정
-    const spreadsheetId = 'YOUR_SPREADSHEET_ID'; // Spreadsheet ID 설정
+    const feedback = document.getElementById('feedback');
+    const dataContainer = document.getElementById('data-container');
+    const programDropdown = document.getElementById('program-dropdown');
+    const dateDropdown = document.getElementById('date-dropdown');
 
+    feedback.textContent = ''; // 안내 문구 초기화
+    dataContainer.innerHTML = ''; // 기존 데이터 초기화
+    programDropdown.disabled = true; // 드롭다운 비활성화
+    dateDropdown.disabled = true;
 
-
-    // 각 시트의 범위 지정
-    const participantRange = '참여자 평가!A1:Z100'; // 메인 시트
+    const apiKey = 'AIzaSyCxuIls44oOUftmwLSfTTz88oiskpr4OPY'; // 실제 API Key 입력
+    const spreadsheetId = '1iQQ_1rn0v2UG5RAVdrHxHRiTKbBZvStVj7PT3cHrnoA'; // 실제 Spreadsheet ID 입력
+    const participantRange = '참여자 평가!A1:Z100'; // 메인 시트 범위
 
     try {
-        // '참여자 평가' 시트 데이터 가져오기
-        const participantResponse = await fetch(
+        const response = await fetch(
             `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${participantRange}?key=${apiKey}`
         );
-        const participantData = await participantResponse.json();
+        const data = await response.json();
 
-        console.log('Participant Data:', participantData); // 가져온 데이터 확인
+        if (data.values) {
+            const [headers, ...rows] = data.values;
 
-        const container = document.getElementById('data-container');
-        container.innerHTML = ''; // 기존 데이터를 초기화
-
-        if (participantData.values) {
-            // 헤더와 데이터 분리
-            const [headers, ...rows] = participantData.values;
-
-            console.log('Headers:', headers); // 헤더 확인
-            console.log('Rows:', rows);       // 모든 데이터 행 확인
-
-            // 개인번호 기준으로 데이터 필터링
+            // 개인번호 필터링
             const filteredRows = rows.filter(row => row[7] === personalNumber); // 개인번호가 7번째 열
 
-            console.log('Filtered Rows:', filteredRows); // 필터링된 데이터 확인
-
             if (filteredRows.length > 0) {
-                filteredRows.forEach(row => {
-                    const div = document.createElement('div');
-                    div.textContent = headers.map((header, i) => `${header}: ${row[i]}`).join(', ');
-                    container.appendChild(div);
+                feedback.textContent = ''; // 안내 문구 비우기
+
+                // 드롭다운 채우기
+                const programs = [...new Set(filteredRows.map(row => row[1]))];
+                programDropdown.innerHTML = `<option value="">프로그램명을 선택하세요</option>`;
+                programs.forEach(program => {
+                    const option = document.createElement('option');
+                    option.value = program;
+                    option.textContent = program;
+                    programDropdown.appendChild(option);
+                });
+                programDropdown.disabled = false;
+
+                programDropdown.addEventListener('change', () => {
+                    const selectedProgram = programDropdown.value;
+
+                    // 날짜 드롭다운 채우기
+                    const dates = [...new Set(filteredRows.filter(row => row[1] === selectedProgram).map(row => row[3]))];
+                    dateDropdown.innerHTML = `<option value="">날짜를 선택하세요</option>`;
+                    dates.forEach(date => {
+                        const option = document.createElement('option');
+                        option.value = date;
+                        option.textContent = date;
+                        dateDropdown.appendChild(option);
+                    });
+                    dateDropdown.disabled = false;
                 });
             } else {
-                container.textContent = 'No matching data found.';
+                feedback.textContent = '일치하는 내용이 없습니다. 회원번호를 다시 한 번 확인해주세요.';
             }
         } else {
-            container.textContent = 'No data found.';
+            feedback.textContent = '데이터를 불러오는 데 실패했습니다.';
         }
     } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('data-container').textContent = 'Error fetching data.';
+        feedback.textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+        console.error('Error:', error);
     }
 });

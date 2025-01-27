@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afterschool Slow</title>
+    <title>방과후 학생 평가자료</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Afterschool Slow</h1>
+    <h1>방과후 학생 평가자료</h1>
     <div class="container">
-        <input type="text" id="personal-number" placeholder="Enter personal number">
-        <button id="fetch-data">Search</button>
-        <div id="data-container"></div>
+        <label for="personal-number">회원번호:</label>
+        <input type="text" id="personal-number" placeholder="( 학생의 회원번호를 입력하세요. )">
+        <button id="fetch-data">검색</button>
+        <div id="feedback"></div> <!-- 검색 결과 안내 문구 -->
+        <div id="dropdowns">
+            <select id="program-dropdown" disabled>
+                <option value="">프로그램명을 선택하세요</option>
+            </select>
+            <select id="date-dropdown" disabled>
+                <option value="">날짜를 선택하세요</option>
+            </select>
+        </div>
+        <div id="data-container"></div> <!-- 검색된 데이터 표시 -->
     </div>
 </body>
 </html>
