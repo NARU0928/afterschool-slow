@@ -12,23 +12,31 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     programDropdown.disabled = true;
     dateDropdown.disabled = true;
 
-    const apiKey = 'AIzaSyCxuIls44oOUftmwLSfTTz88oiskpr4OPY'; // 실제 API Key 입력
-    const spreadsheetId = '1iQQ_1rn0v2UG5RAVdrHxHRiTKbBZvStVj7PT3cHrnoA'; // 실제 Spreadsheet ID 입력
-    const participantRange = '참여자 평가!A1:Z100';
-    const programContentRange = '프로그램 내용!A1:Z100';
+    // Netlify 환경 변수에서 API Key와 Spreadsheet ID를 가져옴
+const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
+const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
 
+const participantRange = '참여자 평가!A1:Z100';
+const programContentRange = '프로그램 내용!A1:Z100';
+
+// Fetch 데이터 예시
+async function fetchData() {
     try {
         const response = await fetch(
             `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${participantRange}?key=${apiKey}`
         );
-        const programContentResponse = await fetch(
-            `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${programContentRange}?key=${apiKey}`
-        );
+        if (!response.ok) throw new Error('데이터를 가져오는 데 실패했습니다.');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('오류 발생:', error);
+    }
+}
 
-        if (!response.ok || !programContentResponse.ok) {
-            feedback.textContent = '데이터를 불러오는 데 실패했습니다.';
-            return;
-        }
+fetchData();
+
+console.log('API Key:', import.meta.env.VITE_GOOGLE_SHEETS_API_KEY);
+console.log('Spreadsheet ID:', import.meta.env.VITE_GOOGLE_SPREADSHEET_ID);
 
         const data = await response.json();
         const programContentData = await programContentResponse.json();
