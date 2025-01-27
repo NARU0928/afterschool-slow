@@ -6,12 +6,12 @@
     <title>방과후 학생 평가자료</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>방과후 학생 평가자료</h1>
     <div class="container">
-        <label for="personal-number">회원번호:</label>
-        <input type="text" id="personal-number" placeholder="( 학생의 회원번호를 입력하세요. )">
+        <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색▶">
         <button id="fetch-data">검색</button>
         <div id="feedback"></div> <!-- 검색 결과 안내 문구 -->
         <div id="dropdowns">
@@ -19,10 +19,13 @@
                 <option value="">프로그램명을 선택하세요</option>
             </select>
             <select id="date-dropdown" disabled>
-                <option value="">날짜를 선택하세요</option>
+                <option value="">회차를 선택하세요</option>
             </select>
         </div>
-        <div id="data-container"></div> <!-- 검색된 데이터 표시 -->
+        <div id="data-container" style="font-size: 16px; line-height: 1.5;"></div>
+        <div class="chart-container">
+       <canvas id="evaluationChart"></canvas>
+<!-- 검색된 데이터 표시 -->
     </div>
 </body>
 </html>

@@ -10,11 +10,32 @@ body {
     text-align: left;
 }
 
-input, button, select {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
+input[type="text"],
+select,
+button {
+    box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+    height: 40px; /* 동일한 높이 */
     padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px; /* 둥근 모서리 */
+    font-size: 14px;
+    outline: none; /* 선택 시 외곽선 제거 */
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #007bff; /* 포커스 시 색상 강조 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 #data-container {
@@ -28,4 +49,117 @@ input, button, select {
     color: red;
     font-weight: bold;
     margin-top: 10px;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+.activity-content,
+.activity-evaluation {
+    width: 48%;
+}
+.activity-evaluation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+canvas {
+    width: 100%; /* 그래프 크기 조정 */
+    max-width: 300px; /* 그래프 최대 너비 */
+    margin-bottom: 20px;
+}
+.evaluation-list {
+    width: 100%;
+    text-align: center;
+    list-style-type: disc;
+    padding: 0;
+    margin: 0;
+}
+.evaluation-list li {
+    margin: 5px 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #343a40;
+}
+
+h3 {
+    text-align: center;
+    color: #343a40;
+}
+
+input::placeholder {
+    color: #d88c8c; /* 파스텔 톤 붉은 색 */
+    font-style: italic; /* 기울임꼴로 디렉션 강조 */
+}
+
+.form-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.form-inline input[type="text"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+.form-inline button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.form-inline button:hover {
+    background-color: #0056b3;
+}
+.section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+}
+.section h3 {
+    text-align: center;
+    color: #495057;
+    margin-bottom: 15px;
+}
+.info, .evaluation, .single-line {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+.chart-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
 }
