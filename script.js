@@ -102,48 +102,44 @@ const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
                     return acc;
                 }, {});
 
-                const participationInfo = `
-                    <div style="margin-bottom: 20px;">
-                        <h3><참여정보></h3>
-                        <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
-                        <p><strong>• 강사명 :</strong> ${row[2]}</p>
-                        <p><strong>• 수업일자 :</strong> ${row[3]}</p>
-                        <p><strong>• 수업목표 :</strong> ${row[6]}</p>
-                        <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
-                    </div>
-                `;
+               const participationInfo = `
+    <div class="section-title">참여정보</div>
+    <div style="margin-bottom: 20px;">
+        <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
+        <p><strong>• 강사명 :</strong> ${row[2]}</p>
+        <p><strong>• 수업일자 :</strong> ${row[3]}</p>
+        <p><strong>• 수업목표 :</strong> ${row[6]}</p>
+        <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+    </div>
+`;
 
-                const activityContent = `
-                    <div style="width: 48%; display: inline-block; vertical-align: top;">
-                        <h3><활동내용></h3>
-                        ${Object.entries(groupedContent)
-                            .map(
-                                ([category, activities]) =>
-                                    `<p>[${category}]<br>${activities.join('<br>')}</p>`
-                            )
-                            .join('')}
-                    </div>
-                `;
+const activityContent = `
+    <div class="section-title">활동내용</div>
+    <div style="margin-bottom: 20px;">
+        ${Object.entries(groupedContent)
+            .map(([category, activities]) => `<p>[${category}]<br>${activities.join('<br>')}</p>`)
+            .join('')}
+    </div>
+`;
 
-                const activityEvaluation = `
-                    <div style="width: 48%; display: inline-block; vertical-align: top;">
-                        <h3><활동평가></h3>
-                        <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
-                        <p style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span>• 참여도 : ${row[9]}</span>
-                            <span>• 성취도 : ${row[10]}</span>
-                            <span>• 협력과 소통 : ${row[11]}</span>
-                            <span>• 자기 주도성 : ${row[12]}</span>
-                        </p>
-                    </div>
-                `;
+const activityEvaluation = `
+    <div class="section-title">활동평가</div>
+    <div style="width: 48%; display: inline-block; vertical-align: top;">
+        <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+        <p style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span>• 참여도 : ${row[9]}</span>
+            <span>• 성취도 : ${row[10]}</span>
+            <span>• 협력과 소통 : ${row[11]}</span>
+            <span>• 자기 주도성 : ${row[12]}</span>
+        </p>
+    </div>
+`;
 
-                const singleLineEvaluation = `
-                    <div style="text-align: center; margin-top: 20px;">
-                        <h3><한줄평가></h3>
-                        <p>${row[13]}</p>
-                    </div>
-                `;
+const singleLineEvaluation = `
+    <div class="section-title">한줄평가</div>
+    <div class="one-line-review">${row[13]}</div>
+`;
+
 
                 dataContainer.innerHTML = `
                     ${participationInfo}

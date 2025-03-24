@@ -190,3 +190,23 @@ canvas {
     display: block;
     margin: 0 auto;
 }
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #ccc; /* 구분선 추가 */
+}
+
+.one-line-review {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;  /* 문장이 고르게 정렬되도록 설정 */
+    word-break: break-word;
+    max-width: 90%;  /* 너무 길어지지 않도록 최대 너비 설정 */
+    margin: 10px auto; /* 중앙 정렬 */
+}
