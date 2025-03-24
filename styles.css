@@ -11,8 +11,8 @@ body {
 .logo-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center; /* 이 부분을 가운데 정렬로 수정 */
+    gap: 10px;
 }
 
 .logo {

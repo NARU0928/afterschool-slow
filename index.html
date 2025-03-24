@@ -24,6 +24,7 @@
 
     <!-- 드롭다운 선택 -->
     <div id="dropdowns">
+<div id="feedback"></div>
         <select id="program-dropdown" disabled>
             <option value="">프로그램명을 선택하세요</option>
         </select>
@@ -33,39 +34,7 @@
     </div>
 
     <!-- 2X2 레이아웃 적용 -->
-    <div id="data-container" class="grid-layout">
-        <!-- 참여정보 -->
-        <div class="section">
-            <h3>참여정보</h3>
-            <p><strong>• 프로그램명 :</strong> <span id="program-name"></span></p>
-            <p><strong>• 강사명 :</strong> <span id="instructor"></span></p>
-            <p><strong>• 수업일자 :</strong> <span id="class-date"></span></p>
-            <p><strong>• 수업목표 :</strong> <span id="class-goal"></span></p>
-            <p><strong>• 참여학생(회원번호) :</strong> <span id="student-name"></span></p>
-        </div>
-
-        <!-- 활동내용 -->
-        <div class="section">
-            <h3>활동내용</h3>
-            <div id="activity-content"></div>
-        </div>
-
-        <!-- 활동분석 -->
-        <div class="section">
-            <h3>활동분석</h3>
-            <canvas id="evaluationChart"></canvas>
-            <p><strong>• 참여도 :</strong> <span id="participation"></span></p>
-            <p><strong>• 성취도 :</strong> <span id="achievement"></span></p>
-            <p><strong>• 협력과 소통 :</strong> <span id="collaboration"></span></p>
-            <p><strong>• 자기 주도성 :</strong> <span id="self-directed"></span></p>
-        </div>
-
-        <!-- 한줄평가 및 안내 -->
-        <div class="section">
-            <h3>한줄평가 및 안내</h3>
-            <p id="summary-feedback"></p>
-        </div>
-    </div>
+    <div id="data-container" class="grid-layout"></div>
 
 </body>
 </html>
