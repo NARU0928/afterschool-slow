@@ -20,22 +20,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .logo-header img {
-    height: 60px; /* 로고 크기 조정 */
-    max-width: 200px; /* 너무 커지지 않도록 제한 */
+    height: 50px; /* 로고 크기 줄임 */
+    max-width: 180px; /* 가로 크기 제한 */
 }
 
 .logo-header h2 {
-    font-size: 22px;
+    font-size: 20px;
     color: #343a40;
     margin: 0;
     white-space: nowrap; /* 줄바꿈 방지 */
 }
-
 
 input[type="text"],
 select,
