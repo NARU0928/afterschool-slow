@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>세상이음 교육센터</title>
+    <title>세상이음 교육센터 프로그램 활동안내</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" crossorigin src="/assets/index-DafkP3lm.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Cmaux0Hv.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon"> <!-- 파비콘 추가 -->
 </head>
 <body>
-<div class="logo-header">
-    <img src="/assets/title-_GWMUv-g.png" alt="세상이음 교육센터 로고">
-    <h2>프로그램 활동안내</h2>
-</div>
+    <div class="logo-header">
+        <img src="img/title.png" alt="세상이음 교육센터 로고">
+        <h2>프로그램 활동안내</h2>
+    </div>
     <div class="container">
         <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색">
         <button id="fetch-data">검색</button>
@@ -27,8 +28,8 @@
         </div>
         <div id="data-container" style="font-size: 16px; line-height: 1.5;"></div>
         <div class="chart-container">
-       <canvas id="evaluationChart"></canvas>
-<!-- 검색된 데이터 표시 -->
+            <canvas id="evaluationChart"></canvas>
+        </div>
     </div>
 </body>
 </html>
