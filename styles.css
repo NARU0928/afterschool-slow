@@ -201,11 +201,14 @@ button:hover {
     .search-box, #dropdowns {
         flex-direction: column;
         gap: 5px;
+        padding: 0 15px; /* ← 좌우 여백 추가 */
+        box-sizing: border-box; /* ← padding 포함한 박스 크기 계산 */
     }
 
     .search-box input, .search-box button, #dropdowns select {
         width: 100%;
-        max-width: 100%;
+        max-width: 400px; /* ← 최대 너비 지정으로 가득 차는 현상 방지 */
+        margin: 0 auto; /* ← 가운데 정렬 */
     }
 
     #data-container {
