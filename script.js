@@ -126,12 +126,13 @@ const activityEvaluation = `
     <div class="section-title">활동평가</div>
     <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
     <div class="score-grid">
-        <div class="score-item"><strong>참여도:</strong> ${row[9]}</div>
-        <div class="score-item"><strong>성취도:</strong> ${row[10]}</div>
-        <div class="score-item"><strong>협력과 소통:</strong> ${row[11]}</div>
-        <div class="score-item"><strong>자기 주도성:</strong> ${row[12]}</div>
+        <div class="score-item"><strong>참여도 :</strong> ${row[9]}</div>
+        <div class="score-item"><strong>성취도 :</strong> ${row[10]}</div>
+        <div class="score-item"><strong>협력과 소통 :</strong> ${row[11]}</div>
+        <div class="score-item"><strong>자기 주도성 :</strong> ${row[12]}</div>
     </div>
 `;
+
 
 
 

@@ -258,21 +258,19 @@ canvas {
 }
 
 .score-grid {
-    display: flex;
-    justify-content: space-between; /* 점수를 균등하게 배치 */
-    align-items: center;
-    flex-wrap: wrap; /* 줄 바꿈을 허용하여 반응형 지원 */
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 정렬 */
+    gap: 15px; /* 점수 항목 간격 */
     margin-top: 10px;
+    text-align: center; /* 내용 중앙 정렬 */
 }
 
 .score-item {
-    flex: 1 1 calc(50% - 10px); /* 2열 균등 분배 */
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
     font-size: 16px;
-    text-align: center;
     font-weight: bold;
     border: 1px solid #ddd;
 }
+
