@@ -17,7 +17,6 @@ const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
 const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
 
 
-
     console.log('API Key:', apiKey);
     console.log('Spreadsheet ID:', spreadsheetId);
 
@@ -163,18 +162,20 @@ const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
 
 // 그래프 생성 함수
 function renderGraph(row) {
-    const ctx = document.createElement('canvas');
-    const graphContainer = document.getElementById('graph-container');
-    graphContainer.innerHTML = '';
+    const ctx = document.createElement("canvas");
+    const graphContainer = document.getElementById("graph-container");
+    graphContainer.innerHTML = "";
     graphContainer.appendChild(ctx);
 
+    // 점수 변환을 위한 매핑 (문자 → 숫자 변환)
     const scoreMapping = {
-        '매우 적극적': 5, '적극적': 4, '보통': 3, '소극적': 2, '참여 없음': 1,
-        '100%-80%': 5, '80%-60%': 4, '60%-40%': 3, '40%-20%': 2, '20%-0%': 1,
-        '매우 원활': 5, '원활': 4, '보통': 3, '미흡': 2, '협력 없음': 1,
-        '매우 주도적': 5, '주도적': 4, '보통': 3, '수동적': 2, '의존적': 1
+        "매우 적극적": 5, "적극적": 4, "보통": 3, "소극적": 2, "참여 없음": 1,
+        "100%-80%": 5, "80%-60%": 4, "60%-40%": 3, "40%-20%": 2, "20%-0%": 1,
+        "매우 원활": 5, "원활": 4, "보통": 3, "미흡": 2, "협력 없음": 1,
+        "매우 주도적": 5, "주도적": 4, "보통": 3, "수동적": 2, "의존적": 1
     };
 
+    // 평가 점수 가져오기 (문자 -> 숫자로 변환)
     const scores = [
         scoreMapping[row[9].trim()] || 0,
         scoreMapping[row[10].trim()] || 0,
@@ -182,9 +183,45 @@ function renderGraph(row) {
         scoreMapping[row[12].trim()] || 0
     ];
 
+    console.log("Converted Scores:", scores); // 디버깅용
+
+    // Chart.js를 활용한 그래프 생성
     new Chart(ctx, {
-        type: 'radar',
-        data: { labels: ['참여도', '성취도', '협력과 소통', '자기 주도성'], datasets: [{ data: scores }] },
-        options: { responsive: true }
+        type: "radar",
+        data: {
+            labels: ["참여도", "성취도", "협력과 소통", "자기 주도성"],
+            datasets: [
+                {
+                    label: "", // 범례 제거
+                    data: scores,
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 2,
+                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                r: {
+                    suggestedMin: 0,
+                    suggestedMax: 5, // 5점 만점으로 설정
+                    ticks: {
+                        stepSize: 1, // 1단위로 표시
+                        callback: function(value) {
+                            return value.toFixed(0); // 소수점 제거
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false // 범례 제거
+                }
+            }
+        }
     });
 }
