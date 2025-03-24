@@ -122,7 +122,7 @@ const activityContent = `
 `;
 
 const activityEvaluation = `
-    <div class="section-title">활동평가</div>
+    <div class="section-title">활동분석</div>
     <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
     <div class="score-grid">
         <div class="score-item"><strong>참여도 :</strong> ${row[9]}</div>
@@ -159,7 +159,7 @@ const singleLineEvaluation = `
 
     <div class="grid-container">
         <div class="grid-item left">
-            <div class="section-title">활동평가</div>
+            <div class="section-title">활동분석</div>
             <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
             <p style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <span>• 참여도 : ${row[9]}</span>
