@@ -176,6 +176,26 @@ button:hover {
 }
 
 
+/* 하단 로고 스타일 */
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0; /* 위아래 여백 추가 */
+}
+
+.footer-logo img {
+    width: 150px; /* 로고 이미지 크기 조정 (너무 크지 않은 적절한 크기) */
+    opacity: 0.8; /* 약간 투명도를 줘서 시선을 덜 끌게 조정 */
+}
+
+/* 모바일에서의 로고 크기 조정 */
+@media screen and (max-width: 768px) {
+    .footer-logo img {
+        width: 120px; /* 모바일 환경에서는 더 작은 크기로 표시 */
+    }
+}
+
 /* 모바일 환경에서 한 줄 레이아웃으로 전환 */
 @media screen and (max-width: 768px) {
     .grid-layout {
@@ -224,3 +244,6 @@ button:hover {
     width: 100%;
     min-height: 250px; /* 그래프 최소 높이 */
 }
+
+
+
