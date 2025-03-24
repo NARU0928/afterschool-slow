@@ -259,10 +259,11 @@ canvas {
 
 .score-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2열 정렬 */
-    gap: 15px; /* 점수 항목 간격 */
+    grid-template-columns: 1fr 1fr; /* 2열 정렬 */
+    gap: 10px; /* 항목 간격 */
     margin-top: 10px;
-    text-align: center; /* 내용 중앙 정렬 */
+    text-align: left; /* 왼쪽 정렬 */
+    width: 100%;
 }
 
 .score-item {
@@ -271,6 +272,8 @@ canvas {
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
+    text-align: center; /* 개별 항목 중앙 정렬 */
     border: 1px solid #ddd;
+    width: 100%; /* 항목이 균등한 크기를 가지도록 설정 */
 }
 

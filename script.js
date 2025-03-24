@@ -134,8 +134,6 @@ const activityEvaluation = `
 `;
 
 
-
-
 const singleLineEvaluation = `
     <div class="section-title">한줄평가 및 안내</div>
     <div class="one-line-review">${row[13]}</div>
