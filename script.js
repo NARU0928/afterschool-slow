@@ -134,7 +134,7 @@ const activityEvaluation = `
 
 
 const singleLineEvaluation = `
-    <div class="section-title">한줄평가 및 안내</div>
+    <div class="section-title">피드백 및 안내</div>
     <div class="one-line-review">${row[13]}</div>
 `;
 
@@ -169,7 +169,7 @@ const singleLineEvaluation = `
             </p>
         </div>
         <div class="grid-item right">
-            <div class="section-title">한줄평가 및 안내</div>
+            <div class="section-title">피드백 및 안내</div>
             <div class="one-line-review">${row[13]}</div>
         </div>
     </div>
@@ -209,43 +209,48 @@ function renderGraph(row) {
 
     console.log("Converted Scores:", scores); // 디버깅용
 
-    // Chart.js를 활용한 그래프 생성
-    new Chart(ctx, {
-        type: "radar",
-        data: {
-            labels: ["참여도", "성취도", "협력과 소통", "자기 주도성"],
-            datasets: [
-                {
-                    label: "", // 범례 제거
-                    data: scores,
-                    backgroundColor: "rgba(54, 162, 235, 0.2)",
-                    borderColor: "rgba(54, 162, 235, 1)",
-                    borderWidth: 2,
-                    pointBackgroundColor: "rgba(54, 162, 235, 1)",
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                r: {
-                    suggestedMin: 0,
-                    suggestedMax: 5, // 5점 만점으로 설정
-                    ticks: {
-                        stepSize: 1, // 1단위로 표시
-                        callback: function(value) {
-                            return value.toFixed(0); // 소수점 제거
-                        }
+// Chart.js를 활용한 그래프 생성
+new Chart(ctx, {
+    type: "radar",
+    data: {
+        labels: ["참여도", "성취도", "협력과 소통", "자기 주도성"],
+        datasets: [
+            {
+                data: scores,
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 2,
+                pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false, // 이 옵션이 핵심이야
+        scales: {
+            r: {
+                suggestedMin: 0,
+                suggestedMax: 5,
+                ticks: {
+                    stepSize: 1,
+                    callback: value => value.toFixed(0)
+                },
+                pointLabels: {
+                    font: {
+                        size: 14 // 포인트 레이블 글씨 크기 설정 (가독성 높임)
                     }
                 }
-            },
-            plugins: {
-                legend: {
-                    display: false // 범례 제거
-                }
             }
+        },
+        plugins: {
+            legend: {
+                display: false // 범례 제거
+            }
+        },
+        layout: {
+            padding: 10 // 그래프 내부 패딩으로 여백 추가
         }
-    });
-}
+    }
+});
