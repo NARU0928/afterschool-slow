@@ -7,9 +7,14 @@ body {
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2개의 컬럼으로 나누기 */
+    gap: 20px;
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .content-grid {
@@ -20,10 +25,10 @@ body {
 }
 
 .section {
-    border: 1px solid #ddd;
     padding: 15px;
-    background: #fff;
+    border: 1px solid #ddd;
     border-radius: 8px;
+    background: white;
 }
 
 
@@ -118,4 +123,19 @@ button:hover {
 
 .search-box button:hover {
     background-color: #0056b3;
+}
+
+/* 4개 영역을 2x2로 정렬 */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* 활동 평가 점수 정렬 */
+.score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
 }
