@@ -12,17 +12,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center; /* 이 부분을 가운데 정렬로 수정 */
-    gap: 10px;
+    gap: 2px;
 }
 
 .logo {
-    height: 50px;
+    height: 80px;
 }
 
 .title {
     font-size: 22px;
     font-weight: bold;
-    color: #343a40;
+    color: #EC8C59;
 }
 
 /* 검색창 스타일 */
