@@ -26,7 +26,7 @@ body {
 }
 
 .logo-header img {
-    max-width: 250px; /* 로고 크기 조절 */
+    max-width: 150px;
     height: auto;
 }
 
