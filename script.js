@@ -13,8 +13,9 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     dateDropdown.disabled = true;
 
     // Netlify 환경 변수에서 API Key와 Spreadsheet ID를 가져옴
-const apiKey = process.env.GOOGLE_SHEETS_API_KEY || "YOUR_FALLBACK_API_KEY";
-const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID || "YOUR_FALLBACK_SPREADSHEET_ID";
+const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
+const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
+
 
 
     console.log('API Key:', apiKey);
