@@ -18,22 +18,23 @@ body {
 
 .logo-header {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    text-align: center;
     margin-bottom: 20px;
 }
 
 .logo-header img {
-    height: 50px; /* 로고 크기 줄임 */
-    max-width: 180px; /* 가로 크기 제한 */
+    max-width: 250px; /* 로고 크기 조절 */
+    height: auto;
 }
 
 .logo-header h2 {
-    font-size: 20px;
+    font-size: 22px;
     color: #343a40;
-    margin: 0;
-    white-space: nowrap; /* 줄바꿈 방지 */
+    margin-top: 10px;
+    text-align: center;
 }
 
 input[type="text"],
@@ -274,5 +275,36 @@ canvas {
     text-align: center; /* 개별 항목 중앙 정렬 */
     border: 1px solid #ddd;
     width: 100%; /* 항목이 균등한 크기를 가지도록 설정 */
+}
+
+/* 검색 입력창 및 버튼 스타일 */
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-box input[type="text"] {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-box button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-box button:hover {
+    background-color: #0056b3;
 }
 
