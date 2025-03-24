@@ -215,3 +215,8 @@ button:hover {
         padding: 10px;
     }
 }
+
+#graph-container {
+    width: 100%;
+    min-height: 250px; /* 그래프 최소 높이 */
+}
