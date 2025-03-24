@@ -210,3 +210,49 @@ canvas {
     max-width: 90%;  /* 너무 길어지지 않도록 최대 너비 설정 */
     margin: 10px auto; /* 중앙 정렬 */
 }
+
+.grid-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px; /* 컬럼 간격 */
+    margin-bottom: 30px;
+}
+
+.grid-item {
+    width: 48%;
+    padding: 15px;
+}
+
+.grid-item.left {
+    border-right: 2px solid #ccc; /* 좌우 구분선 추가 */
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #ccc; /* 제목 아래 구분선 */
+}
+
+.one-line-review {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        flex-direction: column;
+    }
+    .grid-item {
+        width: 100%;
+        border-right: none; /* 모바일에서는 구분선 제거 */
+    }
+}

@@ -141,12 +141,42 @@ const singleLineEvaluation = `
 `;
 
 
-                dataContainer.innerHTML = `
-                    ${participationInfo}
-                    ${activityContent}
-                    ${activityEvaluation}
-                    ${singleLineEvaluation}
-                `;
+               dataContainer.innerHTML = `
+    <div class="grid-container">
+        <div class="grid-item left">
+            <div class="section-title">참여정보</div>
+            <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
+            <p><strong>• 강사명 :</strong> ${row[2]}</p>
+            <p><strong>• 수업일자 :</strong> ${row[3]}</p>
+            <p><strong>• 수업목표 :</strong> ${row[6]}</p>
+            <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+        </div>
+        <div class="grid-item right">
+            <div class="section-title">활동내용</div>
+            ${Object.entries(groupedContent)
+                .map(([category, activities]) => `<p>[${category}]<br>${activities.join('<br>')}</p>`)
+                .join('')}
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-item left">
+            <div class="section-title">활동평가</div>
+            <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+            <p style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <span>• 참여도 : ${row[9]}</span>
+                <span>• 성취도 : ${row[10]}</span>
+                <span>• 협력과 소통 : ${row[11]}</span>
+                <span>• 자기 주도성 : ${row[12]}</span>
+            </p>
+        </div>
+        <div class="grid-item right">
+            <div class="section-title">한줄평가</div>
+            <div class="one-line-review">${row[13]}</div>
+        </div>
+    </div>
+`;
+
 
                 renderGraph(row);
             });
