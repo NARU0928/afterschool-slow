@@ -12,13 +12,12 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     programDropdown.disabled = true;
     dateDropdown.disabled = true;
 
-    // Netlify 환경 변수에서 API Key와 Spreadsheet ID를 가져옴
-const apiKey = process.env.VITE_GOOGLE_SHEETS_API_KEY || "YOUR_FALLBACK_API_KEY";
-const spreadsheetId = process.env.VITE_GOOGLE_SPREADSHEET_ID || "YOUR_FALLBACK_SPREADSHEET_ID";
+   // Netlify 환경 변수에서 API Key와 Spreadsheet ID를 가져옴
+const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY || "YOUR_FALLBACK_API_KEY";
+const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID || "YOUR_FALLBACK_SPREADSHEET_ID";
 
 console.log("API Key:", apiKey);
 console.log("Spreadsheet ID:", spreadsheetId);
-
 
     const participantRange = '참여자 평가!A1:Z100';
     const programContentRange = '프로그램 내용!A1:Z100';
