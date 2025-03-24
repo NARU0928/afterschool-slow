@@ -2,10 +2,9 @@
   "dependencies": {
     "chart.js": "^4.4.7",
     "vite": "^6.0.11"
-  }
-}
-
-"scripts": {
+  },
+  "scripts": {
     "dev": "vite",
     "build": "vite build"
+  }
 }
