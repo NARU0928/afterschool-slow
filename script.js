@@ -19,8 +19,8 @@ const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID || "YOUR_FALLBA
 console.log("API Key:", apiKey);
 console.log("Spreadsheet ID:", spreadsheetId);
 
-    const participantRange = '참여자 평가!A1:Z100';
-    const programContentRange = '프로그램 내용!A1:Z100';
+    const participantRange = '참여자 평가';
+    const programContentRange = '프로그램 내용';
 
     // Fetch 데이터 함수
     async function fetchData(range) {
