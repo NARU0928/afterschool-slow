@@ -14,6 +14,9 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2px;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 .logo {
@@ -24,9 +27,10 @@ body {
   font-size: 22px;
   font-weight: bold;
   color: #EC8C59;
+  margin-top: 2px;
 }
 
-/* 검색창 스타일 */
+/* 검색창 */
 .search-box {
   display: flex;
   justify-content: center;
@@ -72,19 +76,73 @@ body {
   width: 200px;
 }
 
-/* 그리드 레이아웃 2x2 */
+/* 반응형 드롭다운 */
+@media (max-width: 768px) {
+  #dropdown-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  #dropdown-group select {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
+
+/* 데이터 컨테이너 */
+#data-container,
+#summary-container {
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 그리드 레이아웃 (2x2) */
 .grid-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   max-width: 900px;
   margin: auto;
-  background: white;
   padding: 20px;
+  background: white;
   border-radius: 10px;
 }
 
-/* 제목 구분선 */
+/* 모바일 그리드 전환 */
+@media screen and (max-width: 768px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .search-box,
+  #dropdown-group {
+    padding: 0 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .search-box input,
+  .search-box button,
+  #dropdown-group select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-logo img {
+    width: 120px;
+  }
+}
+
+/* 섹션 타이틀 */
 .section-title {
   font-size: 20px;
   font-weight: bold;
@@ -94,39 +152,13 @@ body {
   border-bottom: 3px solid #007BFF;
 }
 
-/* 점수 표 */
-.score-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  text-align: center;
+/* 그래프 */
+#graph-container {
+  width: 100%;
+  min-height: 250px;
 }
 
-/* 각 info box */
-.info-box {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 20px auto;
-  box-shadow: 0 0 5px rgba(0,0,0,0.08);
-}
-
-/* 요약 정보 */
-#summary-container {
-  background-color: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-#summary-info-container {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
+/* 종합 그래프 박스 */
 #line-chart-container {
   background-color: white;
   padding: 20px;
@@ -136,16 +168,38 @@ body {
   justify-content: center;
 }
 
-/* 데이터 출력 영역 */
-#data-container {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+#line-chart-container canvas {
+  min-height: 320px;
+  width: 100%;
+  max-width: 700px;
 }
 
-/* 피드백 메시지 */
+/* 요약 정보 카드 */
+#summary-info-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* 활동 요약 박스 */
+#summary-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* 점수 그리드 */
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: center;
+}
+
+/* 피드백 */
 #feedback {
   color: red;
   font-weight: bold;
@@ -163,53 +217,4 @@ body {
 .footer-logo img {
   width: 150px;
   opacity: 0.8;
-}
-
-/* 모바일 대응 */
-@media screen and (max-width: 768px) {
-  .grid-layout {
-    grid-template-columns: 1fr;
-    padding: 10px;
-    gap: 15px;
-  }
-
-  .section-title {
-    font-size: 18px;
-  }
-
-  .logo-header {
-    flex-direction: column;
-    gap: 1px;
-    text-align: center;
-    margin-bottom: 5px;
-  }
-
-  .logo-header img.logo {
-    height: 100px;
-  }
-
-  .title {
-    font-size: 20px;
-    margin-top: 2px;
-  }
-
-  .search-box,
-  #dropdown-group {
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 20px;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .search-box input,
-  .search-box button,
-  #dropdown-group select {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .footer-logo img {
-    width: 120px;
-  }
 }

@@ -21,6 +21,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
 
   feedback.textContent = '';
   dataContainer.innerHTML = '';
+  dataContainer.style.opacity = 1;
   dataContainer.style.display = 'block';
   summaryContainer.style.display = 'none';
   programDropdown.innerHTML = '<option value="">프로그램명을 선택하세요</option>';
@@ -75,6 +76,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
   programDropdown.addEventListener('change', () => {
     const selectedProgram = programDropdown.value;
     summaryContainer.style.display = 'none';
+    dataContainer.style.opacity = 1;
     dataContainer.style.display = 'block';
     dataContainer.innerHTML = '';
 
@@ -111,6 +113,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const finalRows = filteredRows.filter(row => row[1] === selectedProgram && row[4] === selectedDate);
 
     summaryContainer.style.display = 'none';
+    dataContainer.style.opacity = 1;
     dataContainer.style.display = 'block';
     dataContainer.innerHTML = '';
 
@@ -171,8 +174,15 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
       return;
     }
 
-    dataContainer.style.display = 'none';
-    summaryContainer.style.display = 'block';
+    dataContainer.style.opacity = 0;
+    setTimeout(() => {
+      dataContainer.style.display = 'none';
+      summaryContainer.style.display = 'block';
+      summaryContainer.style.opacity = 0;
+      setTimeout(() => {
+        summaryContainer.style.opacity = 1;
+      }, 10);
+    }, 200);
 
     summaryInfo.innerHTML = `
       <div class="info-box white-box">
