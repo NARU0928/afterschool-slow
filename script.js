@@ -26,7 +26,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
   summaryContainer.style.display = 'none';
   programDropdown.innerHTML = '<option value="">프로그램명을 선택하세요</option>';
   dateDropdown.innerHTML = '<option value="">회차를 선택하세요</option>';
-  summaryDropdown.innerHTML = '<option value="">활동 종합 기준을 선택하세요</option>';
+  summaryDropdown.innerHTML = '<option value="">활동종합기준을 선택하세요</option>';
   programDropdown.disabled = true;
   dateDropdown.disabled = true;
   summaryDropdown.disabled = true;
