@@ -294,3 +294,17 @@ button:hover {
     justify-content: center;
 }
 
+/* ...기존 스타일들 유지... */
+
+@media (max-width: 768px) {
+  #dropdown-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #dropdown-group select {
+    width: 90%;
+    margin-bottom: 8px;
+  }
+}
+
