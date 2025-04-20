@@ -1,26 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>세상이음 교육센터</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="script.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <!-- 상단 로고 및 프로그램 안내 -->
     <div class="logo-header">
-        <a href="/">
-            <img src="img/title.png" alt="세상이음 교육센터 로고" class="logo">
-        </a>
+        <a href="/"><img src="img/title.png" alt="세상이음 교육센터 로고" class="logo" /></a>
         <h2 class="title">프로그램 활동안내</h2>
     </div>
 
     <!-- 검색 창 -->
     <div class="search-box">
-        <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색">
+        <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색" />
         <button id="fetch-data">검색</button>
     </div>
 
@@ -35,9 +34,12 @@
         </select>
     </div>
 
-    <!-- 종합평가 보기 버튼 -->
-    <div id="extra-controls" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-        <button id="view-summary" disabled>📊 종합평가 보기</button>
+    <!-- 종합 기준 드롭다운 + 종합 보기 버튼 (노란 강조) -->
+    <div id="summary-controls" style="display: none; justify-content: center; gap: 10px; margin-bottom: 20px;">
+        <select id="summary-range-dropdown" style="background-color: #fffbd4; border: 1px solid #ced4da; border-radius: 5px; padding: 8px;">
+            <option value="">활동 종합 기준을 선택하세요</option>
+        </select>
+        <button id="view-summary" disabled>📊 활동 종합 보기</button>
     </div>
 
     <!-- 회차별 세부 내용 -->
@@ -62,7 +64,7 @@
 
     <!-- 하단 로고 -->
     <footer class="footer-logo">
-        <img src="img/foot_logo.png" alt="세상이음 로고">
+        <img src="img/foot_logo.png" alt="세상이음 로고" />
     </footer>
 </body>
 </html>
