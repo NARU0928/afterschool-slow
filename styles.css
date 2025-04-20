@@ -259,11 +259,14 @@ body {
 }
 
 @media (max-width: 768px) {
-  .summary-header-info .white-box {
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0;
-    border-radius: 0;
+  #summary-info-container .white-box {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
   }
 }
+
 
