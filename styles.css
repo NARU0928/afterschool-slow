@@ -289,3 +289,8 @@ button:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
 }
 
+#line-chart-container {
+    display: flex;
+    justify-content: center;
+}
+

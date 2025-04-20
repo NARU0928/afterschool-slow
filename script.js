@@ -12,17 +12,13 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const summaryActivity = document.getElementById('summary-activity');
     const summaryHomeMessage = document.getElementById('summary-home-message');
 
-    if (feedback) feedback.textContent = '';
+    feedback.textContent = '';
     dataContainer.innerHTML = '';
     dataContainer.style.display = 'block';
     summaryContainer.style.display = 'none';
-    summaryInfo.innerHTML = '';
-    lineChartContainer.innerHTML = '';
-    summaryActivity.innerHTML = '';
-    summaryHomeMessage.innerHTML = '';
-    programDropdown.innerHTML = `<option value="">프로그램명을 선택하세요</option>`;
-    dateDropdown.innerHTML = `<option value="">회차를 선택하세요</option>`;
-    summaryDropdown.innerHTML = `<option value="">활동 종합 기준을 선택하세요</option>`;
+    programDropdown.innerHTML = '<option value="">프로그램명을 선택하세요</option>';
+    dateDropdown.innerHTML = '<option value="">회차를 선택하세요</option>';
+    summaryDropdown.innerHTML = '<option value="">활동 종합 기준을 선택하세요</option>';
     programDropdown.disabled = true;
     dateDropdown.disabled = true;
     summaryDropdown.disabled = true;
@@ -31,17 +27,21 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID;
 
     async function fetchData(range) {
-        const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`);
+        const res = await fetch(
+            `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
+        );
         if (!res.ok) return null;
         return (await res.json()).values;
     }
 
-    const participantData = await fetchData('참여자 평가');
-    const programContentData = await fetchData('프로그램 내용');
-    const summaryData = await fetchData('종합 평가');
+    const [participantData, programContentData, summaryData] = await Promise.all([
+        fetchData('참여자 평가'),
+        fetchData('프로그램 내용'),
+        fetchData('종합 평가')
+    ]);
 
     if (!participantData || !programContentData || !summaryData) {
-        if (feedback) feedback.textContent = '데이터를 불러오는 데 실패했습니다.';
+        feedback.textContent = '데이터를 불러오는 데 실패했습니다.';
         return;
     }
 
@@ -49,10 +49,10 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const [, ...programContentRows] = programContentData;
     const [, ...summaryRows] = summaryData;
 
-    const filteredRows = rows.filter(row => row[8] === personalNumber || row[8] === parseInt(personalNumber));
+    const filteredRows = rows.filter(row => row[8] === personalNumber);
 
     if (filteredRows.length === 0) {
-        if (feedback) feedback.textContent = '일치하는 내용이 없습니다.';
+        feedback.textContent = '일치하는 내용이 없습니다.';
         return;
     }
 
@@ -70,13 +70,9 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         summaryContainer.style.display = 'none';
         dataContainer.style.display = 'block';
         dataContainer.innerHTML = '';
-        summaryInfo.innerHTML = '';
-        lineChartContainer.innerHTML = '';
-        summaryActivity.innerHTML = '';
-        summaryHomeMessage.innerHTML = '';
 
         const dates = [...new Set(filteredRows.filter(row => row[1] === selectedProgram).map(row => row[4]))];
-        dateDropdown.innerHTML = `<option value="">회차를 선택하세요</option>`;
+        dateDropdown.innerHTML = '<option value="">회차를 선택하세요</option>';
         dates.forEach(date => {
             const option = document.createElement('option');
             option.value = date;
@@ -85,13 +81,13 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         });
         dateDropdown.disabled = false;
 
-        summaryDropdown.innerHTML = `<option value="">활동 종합 기준을 선택하세요</option>`;
+        summaryDropdown.innerHTML = '<option value="">활동 종합 기준을 선택하세요</option>';
         const matchedSummary = summaryRows.filter(row => row[1] === selectedProgram);
         matchedSummary.forEach(row => {
             const option = document.createElement('option');
             option.value = row[3];
-            option.dataset.start = row[4]?.trim();
-            option.dataset.end = row[5]?.trim();
+            option.dataset.start = row[4];
+            option.dataset.end = row[5];
             option.dataset.program = row[1];
             option.dataset.teacher = row[2];
             option.dataset.name = row[6];
@@ -115,6 +111,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             const programContent = programContentRows.filter(
                 contentRow => contentRow[1] === row[1] && contentRow[4] === row[4]
             );
+
             const groupedContent = programContent.reduce((acc, content) => {
                 const category = content[6];
                 if (!acc[category]) acc[category] = [];
@@ -135,20 +132,14 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                     <div class="grid-item right">
                         <div class="section-title">활동내용</div>
                         ${Object.entries(groupedContent)
-                            .map(([category, activities]) => `<p>[${category}]<br>${activities.join('<br>')}</p>`)
+                            .map(([category, items]) => `<p>[${category}]<br>${items.join('<br>')}</p>`)
                             .join('')}
                     </div>
                 </div>
                 <div class="grid-container">
                     <div class="grid-item left">
                         <div class="section-title">활동분석</div>
-                        <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
-                        <p style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <span>• 참여도 : ${row[9]}</span>
-                            <span>• 성취도 : ${row[10]}</span>
-                            <span>• 협력과 소통 : ${row[11]}</span>
-                            <span>• 자기 주도성 : ${row[12]}</span>
-                        </p>
+                        <div id="graph-container" style="width: 100%; height: 200px;"></div>
                     </div>
                     <div class="grid-item right">
                         <div class="section-title">피드백 및 안내</div>
@@ -156,22 +147,21 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                     </div>
                 </div>
             `;
+            renderGraph(row);
         });
     });
 
     summaryDropdown.addEventListener('change', () => {
-        const selectedCriterion = summaryDropdown.options[summaryDropdown.selectedIndex];
-        const selectedProgram = selectedCriterion.dataset.program;
-        const startDate = selectedCriterion.dataset.start;
-        const endDate = selectedCriterion.dataset.end;
+        const selected = summaryDropdown.options[summaryDropdown.selectedIndex];
+        const selectedProgram = selected.dataset.program;
+        const startDate = selected.dataset.start;
+        const endDate = selected.dataset.end;
 
         const programRows = filteredRows.filter(row =>
-            row[1] === selectedProgram &&
-            row[3] >= startDate &&
-            row[3] <= endDate
+            row[1] === selectedProgram && row[3] >= startDate && row[3] <= endDate
         );
 
-        if (programRows.length === 0) {
+        if (!programRows.length) {
             summaryContainer.style.display = 'none';
             return;
         }
@@ -179,12 +169,12 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         summaryInfo.innerHTML = `
             <div class="section-title">활동 종합 기준</div>
             <div style="padding: 15px 10px;">
-                <p><strong>• 프로그램명 :</strong> ${selectedProgram}</p>
-                <p><strong>• 강사명 :</strong> ${selectedCriterion.dataset.teacher}</p>
-                <p><strong>• 종합기준 :</strong> ${selectedCriterion.value}</p>
+                <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
+                <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
+                <p><strong>• 종합기준 :</strong> ${selected.value}</p>
                 <p><strong>• 시작일 :</strong> ${startDate}</p>
                 <p><strong>• 종료일 :</strong> ${endDate}</p>
-                <p><strong>• 참여학생(회원번호) :</strong> ${selectedCriterion.dataset.name} (${selectedCriterion.dataset.pid})</p>
+                <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
             </div>
         `;
 
@@ -213,7 +203,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             type: 'bar',
             data: {
                 labels: chartLabels,
-                datasets: datasets
+                datasets
             },
             options: {
                 responsive: true,
@@ -232,13 +222,72 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             }
         });
 
-        const matchedSummaryRow = summaryRows.find(row =>
+        const summaryRow = summaryRows.find(row =>
             row[1] === selectedProgram && row[7] === filteredRows[0][8]
         );
-        summaryActivity.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[8]}</p>` : '내용 없음';
-        summaryHomeMessage.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[9]}</p>` : '내용 없음';
+        summaryActivity.innerHTML = summaryRow ? `<p>${summaryRow[8]}</p>` : '내용 없음';
+        summaryHomeMessage.innerHTML = summaryRow ? `<p>${summaryRow[9]}</p>` : '내용 없음';
 
         summaryContainer.style.display = 'block';
         dataContainer.style.display = 'none';
     });
 });
+
+// 회차별 레이더그래프 렌더링 함수
+function renderGraph(row) {
+    const ctx = document.createElement("canvas");
+    const graphContainer = document.getElementById("graph-container");
+    graphContainer.innerHTML = "";
+    graphContainer.appendChild(ctx);
+
+    const scoreMapping = {
+        "매우 적극적": 5, "적극적": 4, "보통": 3, "소극적": 2, "참여 없음": 1,
+        "100%-80%": 5, "80%-60%": 4, "60%-40%": 3, "40%-20%": 2, "20%-0%": 1,
+        "매우 원활": 5, "원활": 4, "보통": 3, "미흡": 2, "협력 없음": 1,
+        "매우 주도적": 5, "주도적": 4, "보통": 3, "수동적": 2, "의존적": 1
+    };
+
+    const scores = [
+        scoreMapping[row[9]?.trim()] || 0,
+        scoreMapping[row[10]?.trim()] || 0,
+        scoreMapping[row[11]?.trim()] || 0,
+        scoreMapping[row[12]?.trim()] || 0
+    ];
+
+    new Chart(ctx, {
+        type: "radar",
+        data: {
+            labels: ["참여도", "성취도", "협력과 소통", "자기 주도성"],
+            datasets: [{
+                data: scores,
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 2,
+                pointBackgroundColor: "rgba(54, 162, 235, 1)",
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    suggestedMin: 0,
+                    suggestedMax: 5,
+                    ticks: {
+                        stepSize: 1,
+                        callback: value => value.toFixed(0)
+                    },
+                    pointLabels: {
+                        font: { size: 14 }
+                    }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            },
+            layout: { padding: 10 }
+        }
+    });
+}
