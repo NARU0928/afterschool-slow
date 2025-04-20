@@ -221,13 +221,13 @@ body {
 
 /* 상단 여백 조정 */
 #summary-container {
-  margin-top: 20px !important;
+  margin-top: 40px !important;
   padding-top: 0 !important;
 }
 
 /* 타이틀과 본문 간격 조정 */
 .common-section-box .section-title {
-  margin-bottom: 6px !important;
+  margin-bottom: 2px !important;
 }
 
 /* '활동 종합 기준' 내부 본문 간 간격 줄이기 */
