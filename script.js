@@ -186,7 +186,6 @@ summaryDropdown.addEventListener('change', (event) => {
 
     summaryInfo.innerHTML = `
       <div class="info-box white-box">
-        <div class="section-title">활동 종합 기준</div>
         <div style="padding: 15px 10px;">
           <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
           <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
