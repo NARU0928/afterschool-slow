@@ -90,7 +90,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     });
     dateDropdown.disabled = false;
 
-    summaryDropdown.innerHTML = '<option value="">활동 종합 기준을 선택하세요</option>';
+    summaryDropdown.innerHTML = '<option value="">활동종합기준을 선택하세요</option>';
     const matchedSummary = summaryRows.filter(row => row[1] === selectedProgram);
     matchedSummary.forEach(row => {
       const option = document.createElement('option');
