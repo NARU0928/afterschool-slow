@@ -1,7 +1,3 @@
-
-// ✅ 진짜 최종 script.js (2025-04-21 기준 완전 구현)
-// 기능: 회차 2x2 / 종합 전환 / 모바일 대응 / 차시 누락 방지
-
 function toDate(str) {
   const [m, d] = str.split('/');
   return new Date(`2025-${m.padStart(2, '0')}-${d.padStart(2, '0')}`);
@@ -129,8 +125,8 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
 
       dataContainer.innerHTML = `
         <div class="info-box">
-          <div class="grid-container">
-            <div class="grid-item left">
+          <div class="grid-layout">
+            <div class="grid-item">
               <div class="section-title">참여정보</div>
               <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
               <p><strong>• 강사명 :</strong> ${row[2]}</p>
@@ -138,19 +134,17 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
               <p><strong>• 수업목표 :</strong> ${row[6]}</p>
               <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
             </div>
-            <div class="grid-item right">
+            <div class="grid-item">
               <div class="section-title">활동분석</div>
               <div id="graph-container" style="width: 100%; height: 200px;"></div>
             </div>
-          </div>
-          <div class="grid-container">
-            <div class="grid-item left">
+            <div class="grid-item">
               <div class="section-title">활동내용</div>
               ${Object.entries(groupedContent)
                 .map(([category, items]) => `<p>[${category}]<br>${items.join('<br>')}</p>`)
                 .join('')}
             </div>
-            <div class="grid-item right">
+            <div class="grid-item">
               <div class="section-title">피드백 및 안내</div>
               <div class="one-line-review">${row[13]}</div>
             </div>
@@ -184,6 +178,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
 
     summaryInfo.innerHTML = `
       <div class="info-box white-box">
+        <div class="section-title">활동 종합 기준</div>
         <div style="padding: 15px 10px;">
           <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
           <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
@@ -240,7 +235,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     summaryActivity.innerHTML = summaryRow ? `<p>${summaryRow[8]}</p>` : '내용 없음';
     summaryHomeMessage.innerHTML = summaryRow ? `<p>${summaryRow[9]}</p>` : '내용 없음';
   });
-});
+
 
 function renderGraph(row) {
   const ctx = document.createElement("canvas");
@@ -297,3 +292,4 @@ function renderGraph(row) {
     }
   });
 }
+
