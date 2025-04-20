@@ -1,12 +1,14 @@
 
-// [최종 script.js - 모바일 대응 포함]
+// ✅ script.js 최종본 (2025.04)
+// - 회차 2x2 구조 복원
+// - 종합 차시 누락 방지: 날짜 비교를 Date 객체로 개선
+// - 중복 타이틀 제거
+// - 모바일 대응 포함
 
-// ✅ 주요 수정사항
-// - 회차 정보 2x2 구조 복원
-// - 종합 평가 제목 중복 제거
-// - 막대그래프 누락 방지
-// - 모바일 환경에서 드롭다운 세로 배열
-// - 모바일 Safari 등에서 종합 기능 작동 오류 해결 (타겟 객체 선택 수정)
+function toDate(str) {
+  const [m, d] = str.split('/');
+  return new Date(`2025-${m.padStart(2, '0')}-${d.padStart(2, '0')}`);
+}
 
 document.getElementById('fetch-data').addEventListener('click', async () => {
   const personalNumber = document.getElementById('personal-number').value.trim();
@@ -165,12 +167,13 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     if (!selected) return;
 
     const selectedProgram = selected.dataset.program;
-    const startDate = selected.dataset.start;
-    const endDate = selected.dataset.end;
+    const startDate = toDate(selected.dataset.start);
+    const endDate = toDate(selected.dataset.end);
 
-    const programRows = filteredRows.filter(row =>
-      row[1] === selectedProgram && row[3] >= startDate && row[3] <= endDate
-    );
+    const programRows = filteredRows.filter(row => {
+      const classDate = toDate(row[3]);
+      return row[1] === selectedProgram && classDate >= startDate && classDate <= endDate;
+    });
 
     if (!programRows.length) {
       summaryContainer.style.display = 'none';
@@ -182,8 +185,8 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
         <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
         <p><strong>• 종합기준 :</strong> ${selected.value}</p>
-        <p><strong>• 시작일 :</strong> ${startDate}</p>
-        <p><strong>• 종료일 :</strong> ${endDate}</p>
+        <p><strong>• 시작일 :</strong> ${selected.dataset.start}</p>
+        <p><strong>• 종료일 :</strong> ${selected.dataset.end}</p>
         <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
       </div>
     `;
@@ -238,7 +241,6 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
   });
 });
 
-// Radar chart (회차별)
 function renderGraph(row) {
   const ctx = document.createElement("canvas");
   const graphContainer = document.getElementById("graph-container");
@@ -280,8 +282,13 @@ function renderGraph(row) {
         r: {
           suggestedMin: 0,
           suggestedMax: 5,
-          ticks: { stepSize: 1 },
-          pointLabels: { font: { size: 14 } }
+          ticks: {
+            stepSize: 1,
+            callback: value => value.toFixed(0)
+          },
+          pointLabels: {
+            font: { size: 14 }
+          }
         }
       },
       plugins: { legend: { display: false } },
