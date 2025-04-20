@@ -1,3 +1,4 @@
+// [버튼 제거 + 종합 기준 선택 시 자동 실행] 기능 포함된 script.js
 
 document.getElementById('fetch-data').addEventListener('click', async () => {
     const personalNumber = document.getElementById('personal-number').value.trim();
@@ -6,7 +7,6 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const dateDropdown = document.getElementById('date-dropdown');
     const summaryDropdown = document.getElementById('summary-range-dropdown');
     const summaryControls = document.getElementById('summary-controls');
-    const viewSummaryButton = document.getElementById('view-summary');
     const dataContainer = document.getElementById('data-container');
     const summaryContainer = document.getElementById('summary-container');
     const lineChartContainer = document.getElementById('line-chart-container');
@@ -22,7 +22,6 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     programDropdown.disabled = true;
     dateDropdown.disabled = true;
     summaryDropdown.disabled = true;
-    viewSummaryButton.disabled = true;
     summaryControls.style.display = 'none';
 
     const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY || "YOUR_FALLBACK_API_KEY";
@@ -97,19 +96,58 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             summaryControls.style.display = 'flex';
         });
 
-        viewSummaryButton.addEventListener('click', () => {
+        dateDropdown.addEventListener('change', () => {
+            const selectedProgram = programDropdown.value;
+            const selectedDate = dateDropdown.value;
+            const finalRows = filteredRows.filter(row => row[1] === selectedProgram && row[4] === selectedDate);
+
+            dataContainer.innerHTML = '';
+
+            finalRows.forEach(row => {
+                const programContent = programContentRows.filter(
+                    contentRow => contentRow[1] === row[1] && contentRow[4] === row[4]
+                );
+                const groupedContent = programContent.reduce((acc, content) => {
+                    const category = content[6];
+                    if (!acc[category]) acc[category] = [];
+                    acc[category].push(`- ${content[7]}`);
+                    return acc;
+                }, {});
+                dataContainer.innerHTML = `
+                    <div class="grid-container">
+                        <div class="grid-item left">
+                            <div class="section-title">참여정보</div>
+                            <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
+                            <p><strong>• 강사명 :</strong> ${row[2]}</p>
+                            <p><strong>• 수업일자 :</strong> ${row[3]}</p>
+                            <p><strong>• 수업목표 :</strong> ${row[6]}</p>
+                            <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+                        </div>
+                        <div class="grid-item right">
+                            <div class="section-title">활동내용</div>
+                            ${Object.entries(groupedContent)
+                                .map(([category, activities]) => `<p>[${category}]<br>${activities.join('<br>')}</p>`)
+                                .join('')}
+                        </div>
+                    </div>
+                `;
+            });
+        });
+
+        summaryDropdown.addEventListener('change', () => {
             const selectedProgram = programDropdown.value;
             const selectedCriterion = summaryDropdown.options[summaryDropdown.selectedIndex];
             const startDate = selectedCriterion.dataset.start;
             const endDate = selectedCriterion.dataset.end;
 
-            const programRows = filteredRows.filter(row => {
-                return row[1] === selectedProgram &&
-                    row[3] >= startDate && row[3] <= endDate;
-            });
+            const programRows = filteredRows.filter(row =>
+                row[1] === selectedProgram &&
+                row[3] >= startDate &&
+                row[3] <= endDate
+            );
 
             if (programRows.length === 0) {
-                alert("선택된 종합기준 내에 평가 데이터가 없습니다.");
+                summaryContainer.style.display = 'none';
                 return;
             }
 
@@ -155,15 +193,15 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                 }
             });
 
-            // 활동내용/가정전달 종합 평가 시트에서 불러오기
             const matchedSummaryRow = summaryRows.find(row =>
-                row[1] === selectedProgram && row[7] === filteredRows[0][8] // 개인번호 일치
+                row[1] === selectedProgram && row[8] === filteredRows[0][8]
             );
             summaryActivity.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[9]}</p>` : '내용 없음';
             summaryHomeMessage.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[10]}</p>` : '내용 없음';
 
             summaryContainer.style.display = 'block';
         });
+
     } else {
         feedback.textContent = '일치하는 내용이 없습니다.';
     }
