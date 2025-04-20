@@ -8,19 +8,37 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* 상단 로고 및 제목 */
+/* 기본값: 모바일 대응 */
 .logo-header {
   display: flex;
+  flex-direction: column;  /* 모바일: 세로 정렬 */
   align-items: center;
-  justify-content: center;
-  gap: 2px;
-  flex-direction: column;
   text-align: center;
-  margin-bottom: 5px;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
 .logo {
   height: 80px;
+}
+
+/* 데스크탑: 좌우 정렬로 전환 */
+@media screen and (min-width: 769px) {
+  .logo-header {
+    flex-direction: row;         /* 데스크탑: 가로 정렬 */
+    justify-content: flex-start; /* 좌측 정렬 */
+    padding-left: 30px;
+    text-align: left;
+  }
+
+  .logo {
+    height: 70px;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-left: 15px;
+  }
 }
 
 .title {
