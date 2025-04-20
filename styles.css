@@ -219,19 +219,29 @@ body {
   opacity: 0.8;
 }
 
-/* 상단 여백 조정 */
+/* 활동 종합 상단 박스 여백 조정 (회차 정보와 균형 맞춤) */
 #summary-container {
-  margin-top: 20px !important;
-  padding-top: 10px !important;
+  margin-top: 30px !important;
 }
 
-/* 타이틀과 본문 간격 조정 */
+/* 타이틀 아래 간격 줄이기 */
 .common-section-box .section-title {
   margin-bottom: 6px !important;
 }
 
-/* '활동 종합 기준' 내부 본문 간 간격 줄이기 */
-.summary-header-info > div:not(.section-title) {
-  margin-top: 4px !important;
+/* 활동 종합 기준 내용 간 간격 조정 */
+#summary-info-container > div:not(.section-title) {
+  margin-top: 2px !important;
   padding-top: 0 !important;
+}
+
+#summary-info-container {
+  padding-top: 12px; /* 전체 상단 여백 */
+}
+
+/* 혹시 내부 p 태그가 있다면 */
+#summary-info-container p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
 }

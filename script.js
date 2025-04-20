@@ -187,12 +187,12 @@ summaryDropdown.addEventListener('change', (event) => {
     summaryInfo.innerHTML = `
       <div class="info-box white-box">
         <div style="padding: 15px 10px;">
-          <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
-          <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
-          <p><strong>• 종합기준 :</strong> ${selected.value}</p>
-          <p><strong>• 시작일 :</strong> ${selected.dataset.start}</p>
-          <p><strong>• 종료일 :</strong> ${selected.dataset.end}</p>
-          <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
+          <p><strong>⊙ 프로그램명 :</strong> ${selected.dataset.program}</p>
+          <p><strong>⊙ 강사명 :</strong> ${selected.dataset.teacher}</p>
+          <p><strong>⊙ 종합기준 :</strong> ${selected.value}</p>
+          <p><strong>⊙ 시작일 :</strong> ${selected.dataset.start}</p>
+          <p><strong>⊙ 종료일 :</strong> ${selected.dataset.end}</p>
+          <p><strong>⊙ 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
         </div>
       </div>
     `;
