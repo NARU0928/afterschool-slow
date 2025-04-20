@@ -1,4 +1,4 @@
-// [버튼 제거 + 종합 기준 선택 시 자동 실행] 기능 포함된 script.js
+// script.js - 회차/종합 선택 독립작동 + 상단 종합정보 표시 + 열 순서 반영
 
 document.getElementById('fetch-data').addEventListener('click', async () => {
     const personalNumber = document.getElementById('personal-number').value.trim();
@@ -6,23 +6,23 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const programDropdown = document.getElementById('program-dropdown');
     const dateDropdown = document.getElementById('date-dropdown');
     const summaryDropdown = document.getElementById('summary-range-dropdown');
-    const summaryControls = document.getElementById('summary-controls');
     const dataContainer = document.getElementById('data-container');
     const summaryContainer = document.getElementById('summary-container');
     const lineChartContainer = document.getElementById('line-chart-container');
+    const summaryInfo = document.getElementById('summary-info-container');
     const summaryActivity = document.getElementById('summary-activity');
     const summaryHomeMessage = document.getElementById('summary-home-message');
 
     feedback.textContent = '';
     dataContainer.innerHTML = '';
     summaryContainer.style.display = 'none';
+    summaryInfo.innerHTML = '';
     programDropdown.innerHTML = `<option value="">프로그램명을 선택하세요</option>`;
     dateDropdown.innerHTML = `<option value="">회차를 선택하세요</option>`;
     summaryDropdown.innerHTML = `<option value="">활동 종합 기준을 선택하세요</option>`;
     programDropdown.disabled = true;
     dateDropdown.disabled = true;
     summaryDropdown.disabled = true;
-    summaryControls.style.display = 'none';
 
     const apiKey = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY || "YOUR_FALLBACK_API_KEY";
     const spreadsheetId = import.meta.env.VITE_GOOGLE_SPREADSHEET_ID || "YOUR_FALLBACK_SPREADSHEET_ID";
@@ -32,16 +32,10 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const summaryRange = '종합 평가';
 
     async function fetchData(range) {
-        try {
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
-            );
-            if (!response.ok) throw new Error('데이터를 가져오는 데 실패했습니다.');
-            return (await response.json()).values;
-        } catch (error) {
-            console.error('오류 발생:', error);
-            return null;
-        }
+        const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.values;
     }
 
     const participantData = await fetchData(participantRange);
@@ -71,6 +65,12 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
 
         programDropdown.addEventListener('change', () => {
             const selectedProgram = programDropdown.value;
+            summaryContainer.style.display = 'none';
+            summaryInfo.innerHTML = '';
+            lineChartContainer.innerHTML = '';
+            summaryActivity.innerHTML = '';
+            summaryHomeMessage.innerHTML = '';
+
             const dates = [...new Set(filteredRows.filter(row => row[1] === selectedProgram).map(row => row[4]))];
             dateDropdown.innerHTML = `<option value="">회차를 선택하세요</option>`;
             dates.forEach(date => {
@@ -81,19 +81,21 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             });
             dateDropdown.disabled = false;
 
-            // 종합 기준 활성화
             summaryDropdown.innerHTML = `<option value="">활동 종합 기준을 선택하세요</option>`;
             const matchedSummary = summaryRows.filter(row => row[1] === selectedProgram);
             matchedSummary.forEach(row => {
                 const option = document.createElement('option');
-                option.value = row[3]; // 종합기준명
+                option.value = row[3];
                 option.dataset.start = row[4]?.trim();
                 option.dataset.end = row[5]?.trim();
+                option.dataset.program = row[1];
+                option.dataset.teacher = row[2];
+                option.dataset.name = row[6];
+                option.dataset.pid = row[7];
                 option.textContent = row[3];
                 summaryDropdown.appendChild(option);
             });
             summaryDropdown.disabled = false;
-            summaryControls.style.display = 'flex';
         });
 
         dateDropdown.addEventListener('change', () => {
@@ -102,6 +104,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             const finalRows = filteredRows.filter(row => row[1] === selectedProgram && row[4] === selectedDate);
 
             dataContainer.innerHTML = '';
+            summaryContainer.style.display = 'none'; // 종합 정보 숨김
 
             finalRows.forEach(row => {
                 const programContent = programContentRows.filter(
@@ -151,6 +154,16 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                 return;
             }
 
+            // 상단 종합 정보
+            summaryInfo.innerHTML = `
+                <p><strong>• 프로그램명 :</strong> ${selectedCriterion.dataset.program}</p>
+                <p><strong>• 강사명 :</strong> ${selectedCriterion.dataset.teacher}</p>
+                <p><strong>• 종합기준 :</strong> ${selectedCriterion.value}</p>
+                <p><strong>• 시작일 :</strong> ${startDate}</p>
+                <p><strong>• 종료일 :</strong> ${endDate}</p>
+                <p><strong>• 참여학생(회원번호) :</strong> ${selectedCriterion.dataset.name} (${selectedCriterion.dataset.pid})</p>
+            `;
+
             const scoreMapping = {
                 "매우 적극적": 5, "적극적": 4, "보통": 3, "소극적": 2, "참여 없음": 1,
                 "100%-80%": 5, "80%-60%": 4, "60%-40%": 3, "40%-20%": 2, "20%-0%": 1,
@@ -193,13 +206,15 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                 }
             });
 
+            // 종합 시트에서 활동내용/가정 전달사항 → J열(9), K열(10)
             const matchedSummaryRow = summaryRows.find(row =>
-                row[1] === selectedProgram && row[8] === filteredRows[0][8]
+                row[1] === selectedProgram && row[7] === filteredRows[0][8]
             );
             summaryActivity.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[9]}</p>` : '내용 없음';
             summaryHomeMessage.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[10]}</p>` : '내용 없음';
 
             summaryContainer.style.display = 'block';
+            dataContainer.innerHTML = ''; // 회차 정보 숨김
         });
 
     } else {
