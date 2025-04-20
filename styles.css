@@ -1,3 +1,4 @@
+
 /* 전체 배경 이미지 적용 */
 body {
   background-image: url('img/back.jpg');
@@ -7,7 +8,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* 기본: 모바일 (세로 정렬, 중앙) */
+/* 상단 로고 및 제목 */
 .logo-header {
   display: flex;
   flex-direction: column;
@@ -29,7 +30,7 @@ body {
   font-size: 22px;
 }
 
-/* 데스크탑 스타일 */
+/* 데스크탑 정렬 */
 @media screen and (min-width: 769px) {
   .logo-header {
     flex-direction: row;
@@ -46,10 +47,6 @@ body {
     font-size: 26px;
     margin: 0;
     text-align: left;
-  }
-
-  .section-title {
-    font-size: 20px;
   }
 
   .footer-logo img {
@@ -73,12 +70,12 @@ body {
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 300px;
+  width: 280px;
 }
 
 .search-box button {
   height: 40px;
-  padding: 8px 15px;
+  padding: 0 16px;
   background-color: #007BFF;
   color: white;
   border: none;
@@ -86,14 +83,13 @@ body {
   font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
-  min-width: 60px;
 }
 
 .search-box button:hover {
   background-color: #0056b3;
 }
 
-/* 드롭다운 그룹 */
+/* 드롭다운 */
 #dropdown-group {
   display: flex;
   justify-content: center;
@@ -113,11 +109,9 @@ body {
   width: 200px;
 }
 
-/* 반응형 드롭다운 */
 @media (max-width: 768px) {
   #dropdown-group {
     flex-direction: column;
-    align-items: center;
     gap: 8px;
   }
 
@@ -126,16 +120,49 @@ body {
   }
 }
 
-/* 데이터/종합 컨테이너 */
+/* 데이터 컨테이너 및 공통박스 */
 #data-container,
 #summary-container {
   background-color: white;
   position: relative;
   z-index: 1;
   transition: opacity 0.2s ease-in-out;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
 }
 
-/* 그리드 레이아웃 (2x2) */
+/* 섹션 타이틀 */
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0056b3;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #007BFF;
+}
+
+/* summary-info 박스 개선 */
+#summary-info-container {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: none;
+  margin-bottom: 20px;
+}
+
+/* 내부 간격 통일 */
+#summary-info-container > div:not(.section-title) {
+  margin-top: 6px !important;
+  padding-top: 0 !important;
+}
+
+#summary-info-container > .section-title {
+  margin-bottom: 6px !important;
+}
+
+/* 2x2 그리드 */
 .grid-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -147,7 +174,6 @@ body {
   border-radius: 10px;
 }
 
-/* 모바일 그리드 전환 */
 @media screen and (max-width: 768px) {
   .grid-layout {
     grid-template-columns: 1fr;
@@ -158,83 +184,24 @@ body {
   .section-title {
     font-size: 18px;
   }
-
-  .search-box,
-  #dropdown-group {
-    padding: 0 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .search-box input,
-  .search-box button,
-  #dropdown-group select {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .footer-logo img {
-    width: 120px;
-  }
-}
-
-/* 섹션 타이틀 */
-.section-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #0056b3;
-  padding-bottom: 5px;
-  margin-bottom: 4px;
-  border-bottom: 3px solid #007BFF;
 }
 
 /* 그래프 */
-#graph-container {
-  width: 100%;
-  min-height: 250px;
-}
-
-/* 종합 그래프 박스 */
 #line-chart-container {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
   display: flex;
   justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 #line-chart-container canvas {
   min-height: 320px;
   width: 100%;
   max-width: 700px;
-}
-
-/* 요약 정보 카드 */
-#summary-info-container {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-/* 활동 요약 박스 */
-#summary-container {
-  background-color: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-/* 점수 그리드 */
-.score-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  text-align: center;
 }
 
 /* 피드백 */
@@ -255,72 +222,4 @@ body {
 .footer-logo img {
   width: 150px;
   opacity: 0.8;
-}
-
-/* ===================================
-   ✅ 최종 디테일 반영된 스타일 정리
-   =================================== */
-@media (max-width: 768px) {
-  #summary-info-container,
-  #summary-info-container .white-box,
-  #line-chart-container {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-}
-
-#summary-info-container > .section-title {
-  margin-bottom: 6px !important;
-}
-
-#summary-info-container > div:not(.section-title) {
-  margin-top: 6px !important;
-  padding-top: 0 !important;
-}
-
-#summary-info-container .white-box > div {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-@media (min-width: 769px) {
-  #summary-container .section-title {
-    padding-left: 20px;
-  }
-}
-
-.grid-layout > .grid-item {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-/* 통일된 제목 정렬 */
-.section-title {
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-}
-
-
-/* 종합 정보 영역 그림자 최소화 */
-#summary-info-container {
-  box-shadow: none !important;
-  padding: 15px !important;
-  margin: 0 auto 20px auto;
-}
-
-/* 그래프 박스 좌우 정렬 맞춤 및 그림자 최소화 */
-#line-chart-container {
-  box-shadow: none !important;
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 900px;
-}
-
-/* 활동요약 및 가정전달 박스 일관 padding */
-#summary-container .grid-layout {
-  padding: 15px !important;
 }

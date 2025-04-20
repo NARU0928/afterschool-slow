@@ -1,70 +1,81 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>세상이음 교육센터</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="script.js"></script>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>세상이음 교육센터</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="script.js"></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- 상단 로고 및 프로그램 안내 -->
-    <div class="logo-header">
-        <a href="/">
-            <img src="img/title.png" alt="세상이음 교육센터 로고" class="logo" />
-        </a>
-        <h2 class="title">프로그램 활동안내</h2>
+  <!-- 상단 로고 및 프로그램 안내 -->
+  <div class="logo-header">
+    <a href="/">
+      <img src="img/title.png" alt="세상이음 교육센터 로고" class="logo" />
+    </a>
+    <h2 class="title">프로그램 활동안내</h2>
+  </div>
+
+  <!-- 검색 창 -->
+  <div class="search-box">
+    <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색" />
+    <button id="fetch-data">검색</button>
+  </div>
+
+  <!-- 피드백 메시지 -->
+  <div id="feedback" style="text-align: center; color: red; margin: 10px 0;"></div>
+
+  <!-- 드롭다운 -->
+  <div id="dropdown-group">
+    <select id="program-dropdown" disabled>
+      <option value="">프로그램명을 선택하세요</option>
+    </select>
+    <select id="date-dropdown" disabled>
+      <option value="">회차를 선택하세요</option>
+    </select>
+    <select id="summary-range-dropdown" style="background-color: #fffbd4;" disabled>
+      <option value="">활동종합기준을 선택하세요</option>
+    </select>
+  </div>
+
+  <!-- 회차별 세부 정보 -->
+  <div id="data-container" class="grid-layout"></div>
+
+  <!-- 종합 정보 -->
+  <div id="summary-container" style="display: none;">
+    
+    <!-- 활동 종합 기준 -->
+    <div class="common-section-box">
+      <div class="section-title">활동 종합 기준</div>
+      <div id="summary-info-container" class="summary-header-info"></div>
     </div>
 
-    <!-- 검색 창 -->
-    <div class="search-box">
-        <input type="text" id="personal-number" placeholder="학생 회원번호 입력 후 검색" />
-        <button id="fetch-data">검색</button>
+    <!-- 프로그램 기간 내 변화 그래프 -->
+    <div class="common-section-box">
+      <div class="section-title">프로그램 기간 내 변화 그래프</div>
+      <div id="line-chart-container">
+        <canvas></canvas>
+      </div>
     </div>
 
-    <!-- 피드백 메시지 -->
-    <div id="feedback" style="text-align: center; color: red; margin: 10px 0;"></div>
-
-    <!-- 가로 정렬 드롭다운 -->
-    <div id="dropdown-group" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-        <select id="program-dropdown" disabled>
-            <option value="">프로그램명을 선택하세요</option>
-        </select>
-        <select id="date-dropdown" disabled>
-            <option value="">회차를 선택하세요</option>
-        </select>
-        <select id="summary-range-dropdown" style="background-color: #fffbd4;" disabled>
-            <option value="">활동종합기준을 선택하세요</option>
-        </select>
+    <!-- 활동내용 / 가정전달사항 -->
+    <div class="grid-layout">
+      <div class="grid-item left">
+        <div class="section-title">활동내용 종합</div>
+        <div id="summary-activity"></div>
+      </div>
+      <div class="grid-item right">
+        <div class="section-title">가정 전달사항</div>
+        <div id="summary-home-message"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- 회차별 세부 정보 -->
-    <div id="data-container" class="grid-layout"></div>
-
-    <!-- 종합 정보 -->
-    <div id="summary-container" style="display: none; max-width: 900px; margin: 0 auto;">
-        <div id="summary-info-container" class="summary-header-info" style="background-color: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 0 4px rgba(0,0,0,0.1);"></div>
-
-        <div class="section-title">프로그램 기간 내 변화 그래프</div>
-        <div id="line-chart-container" style="min-height: 300px; margin: 0 auto;"></div>
-
-        <div class="grid-layout" style="margin-top: 30px;">
-            <div class="grid-item left">
-                <div class="section-title">활동내용 종합</div>
-                <div id="summary-activity"></div>
-            </div>
-            <div class="grid-item right">
-                <div class="section-title">가정 전달사항</div>
-                <div id="summary-home-message"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 하단 로고 -->
-    <footer class="footer-logo">
-        <img src="img/foot_logo.png" alt="세상이음 로고" />
-    </footer>
+  <!-- 하단 로고 -->
+  <footer class="footer-logo">
+    <img src="img/foot_logo.png" alt="세상이음 로고" />
+  </footer>
 </body>
 </html>
