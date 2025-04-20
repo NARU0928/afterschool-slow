@@ -1,9 +1,6 @@
 
-// ✅ script.js 최종본 (2025.04)
-// - 회차 2x2 구조 복원
-// - 종합 차시 누락 방지: 날짜 비교를 Date 객체로 개선
-// - 중복 타이틀 제거
-// - 모바일 대응 포함
+// ✅ 진짜 최종 script.js (2025-04-21 기준 완전 구현)
+// 기능: 회차 2x2 / 종합 전환 / 모바일 대응 / 차시 누락 방지
 
 function toDate(str) {
   const [m, d] = str.split('/');
@@ -131,30 +128,32 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
       }, {});
 
       dataContainer.innerHTML = `
-        <div class="grid-container">
-          <div class="grid-item left">
-            <div class="section-title">참여정보</div>
-            <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
-            <p><strong>• 강사명 :</strong> ${row[2]}</p>
-            <p><strong>• 수업일자 :</strong> ${row[3]}</p>
-            <p><strong>• 수업목표 :</strong> ${row[6]}</p>
-            <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+        <div class="info-box">
+          <div class="grid-container">
+            <div class="grid-item left">
+              <div class="section-title">참여정보</div>
+              <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
+              <p><strong>• 강사명 :</strong> ${row[2]}</p>
+              <p><strong>• 수업일자 :</strong> ${row[3]}</p>
+              <p><strong>• 수업목표 :</strong> ${row[6]}</p>
+              <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+            </div>
+            <div class="grid-item right">
+              <div class="section-title">활동분석</div>
+              <div id="graph-container" style="width: 100%; height: 200px;"></div>
+            </div>
           </div>
-          <div class="grid-item right">
-            <div class="section-title">활동내용</div>
-            ${Object.entries(groupedContent)
-              .map(([category, items]) => `<p>[${category}]<br>${items.join('<br>')}</p>`)
-              .join('')}
-          </div>
-        </div>
-        <div class="grid-container">
-          <div class="grid-item left">
-            <div class="section-title">활동분석</div>
-            <div id="graph-container" style="width: 100%; height: 200px;"></div>
-          </div>
-          <div class="grid-item right">
-            <div class="section-title">피드백 및 안내</div>
-            <div class="one-line-review">${row[13]}</div>
+          <div class="grid-container">
+            <div class="grid-item left">
+              <div class="section-title">활동내용</div>
+              ${Object.entries(groupedContent)
+                .map(([category, items]) => `<p>[${category}]<br>${items.join('<br>')}</p>`)
+                .join('')}
+            </div>
+            <div class="grid-item right">
+              <div class="section-title">피드백 및 안내</div>
+              <div class="one-line-review">${row[13]}</div>
+            </div>
           </div>
         </div>
       `;
@@ -171,7 +170,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     const endDate = toDate(selected.dataset.end);
 
     const programRows = filteredRows.filter(row => {
-      const classDate = toDate(row[3]);
+      const classDate = toDate(row[3].split('(')[0].trim()); // "4/2(수)" → "4/2"
       return row[1] === selectedProgram && classDate >= startDate && classDate <= endDate;
     });
 
@@ -180,14 +179,19 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
       return;
     }
 
+    dataContainer.style.display = 'none';
+    summaryContainer.style.display = 'block';
+
     summaryInfo.innerHTML = `
-      <div style="padding: 15px 10px;">
-        <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
-        <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
-        <p><strong>• 종합기준 :</strong> ${selected.value}</p>
-        <p><strong>• 시작일 :</strong> ${selected.dataset.start}</p>
-        <p><strong>• 종료일 :</strong> ${selected.dataset.end}</p>
-        <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
+      <div class="info-box white-box">
+        <div style="padding: 15px 10px;">
+          <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
+          <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
+          <p><strong>• 종합기준 :</strong> ${selected.value}</p>
+          <p><strong>• 시작일 :</strong> ${selected.dataset.start}</p>
+          <p><strong>• 종료일 :</strong> ${selected.dataset.end}</p>
+          <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
+        </div>
       </div>
     `;
 
@@ -235,9 +239,6 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     );
     summaryActivity.innerHTML = summaryRow ? `<p>${summaryRow[8]}</p>` : '내용 없음';
     summaryHomeMessage.innerHTML = summaryRow ? `<p>${summaryRow[9]}</p>` : '내용 없음';
-
-    summaryContainer.style.display = 'block';
-    dataContainer.style.display = 'none';
   });
 });
 
