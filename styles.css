@@ -146,14 +146,17 @@ body {
 
 #summary-container {
   max-width: 900px;
-  margin: 20px auto 0;
-  padding: 25px 20px;
+  margin: 0 auto;
+  padding: 20px; /* 모든 방향 동일하게, 회차 박스와 맞춤 */
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
   position: relative;
   z-index: 1;
+  transition: opacity 0.2s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  margin-top: 10px; /* 회차 정보와 시각적으로 어울리는 정도로 감소 */
 }
+
 
 /* 종합 그래프 */
 #line-chart-container {
