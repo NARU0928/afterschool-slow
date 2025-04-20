@@ -165,9 +165,20 @@ body {
   font-weight: bold;
   color: #0056b3;
   padding-bottom: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   border-bottom: 3px solid #007BFF;
 }
+
+/* 종합 기준 제목과 내용 간격 균형 있게 조정 (더 정확한 버전) */
+#summary-info-container .section-title {
+  margin-bottom: 6px !important;
+}
+
+#summary-info-container .section-title + div {
+  margin-top: 6px !important;
+  padding-top: 0 !important;
+}
+
 
 /* 그래프 */
 #graph-container {
