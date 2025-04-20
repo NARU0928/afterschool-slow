@@ -156,9 +156,9 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     });
   });
 
-  summaryDropdown.addEventListener('change', (event) => {
-    const selected = event.target.selectedOptions[0];
-    if (!selected) return;
+summaryDropdown.addEventListener('change', (event) => {
+  const selected = event.target.selectedOptions[0];
+  if (!selected || !selected.dataset.start) return;
 
     const selectedProgram = selected.dataset.program;
     const startDate = toDate(selected.dataset.start);

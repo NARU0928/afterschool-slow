@@ -78,6 +78,8 @@ body {
 }
 
 .search-box button {
+  white-space: nowrap; /* 줄바꿈 방지 */
+  min-width: 60px;     /* 검색 버튼 최소 너비 보장 */
   height: 40px;
   padding: 8px 15px;
   background-color: #007BFF;
@@ -246,3 +248,13 @@ body {
   width: 150px;
   opacity: 0.8;
 }
+
+@media (max-width: 768px) {
+  #summary-info-container,
+  #line-chart-container {
+    box-shadow: none;
+    background-color: transparent;
+    padding: 10px 0;
+  }
+}
+
