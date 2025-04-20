@@ -270,3 +270,22 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+
+/* 종합 정보 전체 박스 스타일 */
+#summary-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* 그래프 영역에 여백 및 배경 통일 */
+#line-chart-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+}
+
