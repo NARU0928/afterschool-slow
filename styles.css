@@ -7,7 +7,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* 기본: 모바일 (세로 정렬, 중앙) */
+/* 상단 로고 */
 .logo-header {
   display: flex;
   flex-direction: column;
@@ -188,6 +188,7 @@ body {
   padding-bottom: 5px;
   margin-bottom: 4px;
   border-bottom: 3px solid #007BFF;
+  padding-left: 20px;
 }
 
 /* 그래프 */
@@ -204,6 +205,7 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
   display: flex;
   justify-content: center;
+  margin: 0 20px;
 }
 
 #line-chart-container canvas {
@@ -215,7 +217,7 @@ body {
 /* 요약 정보 카드 */
 #summary-info-container {
   background-color: white;
-  padding: 15px;
+  padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
@@ -223,7 +225,7 @@ body {
 /* 활동 요약 박스 */
 #summary-container {
   background-color: white;
-  padding: 25px;
+  padding: 25px 0;
   border-radius: 12px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
@@ -257,10 +259,22 @@ body {
   opacity: 0.8;
 }
 
-/* ===================================
-   ✅ 최종 디테일 반영된 스타일 정리
-   =================================== */
-@media (max-width: 768px) {
+/* 🔧 세부 여백 및 정렬 보정 */
+.grid-layout > .grid-item {
+  padding: 0 20px;
+}
+
+#summary-info-container > .section-title {
+  margin-bottom: 6px !important;
+  padding-left: 0;
+}
+
+#summary-info-container > div:not(.section-title) {
+  margin-top: 6px !important;
+  padding-top: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
   #summary-info-container,
   #summary-info-container .white-box,
   #line-chart-container {
@@ -271,29 +285,4 @@ body {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
-}
-
-#summary-info-container > .section-title {
-  margin-bottom: 6px !important;
-}
-
-#summary-info-container > div:not(.section-title) {
-  margin-top: 6px !important;
-  padding-top: 0 !important;
-}
-
-#summary-info-container .white-box > div {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-@media (min-width: 769px) {
-  #summary-container .section-title {
-    padding-left: 20px;
-  }
-}
-
-.grid-layout > .grid-item {
-  padding-left: 20px;
-  padding-right: 20px;
 }
