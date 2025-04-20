@@ -1,6 +1,4 @@
 
-// 최종 script.js with summaryDropdown 선언 포함 및 Bar Chart 반영
-
 document.getElementById('fetch-data').addEventListener('click', async () => {
     const personalNumber = document.getElementById('personal-number').value.trim();
     const feedback = document.getElementById('feedback');
@@ -16,6 +14,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
 
     if (feedback) feedback.textContent = '';
     dataContainer.innerHTML = '';
+    dataContainer.style.display = 'block';
     summaryContainer.style.display = 'none';
     summaryInfo.innerHTML = '';
     lineChartContainer.innerHTML = '';
@@ -69,11 +68,12 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     programDropdown.addEventListener('change', () => {
         const selectedProgram = programDropdown.value;
         summaryContainer.style.display = 'none';
+        dataContainer.style.display = 'block';
+        dataContainer.innerHTML = '';
         summaryInfo.innerHTML = '';
         lineChartContainer.innerHTML = '';
         summaryActivity.innerHTML = '';
         summaryHomeMessage.innerHTML = '';
-        dataContainer.innerHTML = '';
 
         const dates = [...new Set(filteredRows.filter(row => row[1] === selectedProgram).map(row => row[4]))];
         dateDropdown.innerHTML = `<option value="">회차를 선택하세요</option>`;
@@ -102,6 +102,63 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         summaryDropdown.disabled = false;
     });
 
+    dateDropdown.addEventListener('change', () => {
+        const selectedProgram = programDropdown.value;
+        const selectedDate = dateDropdown.value;
+        const finalRows = filteredRows.filter(row => row[1] === selectedProgram && row[4] === selectedDate);
+
+        summaryContainer.style.display = 'none';
+        dataContainer.style.display = 'block';
+        dataContainer.innerHTML = '';
+
+        finalRows.forEach(row => {
+            const programContent = programContentRows.filter(
+                contentRow => contentRow[1] === row[1] && contentRow[4] === row[4]
+            );
+            const groupedContent = programContent.reduce((acc, content) => {
+                const category = content[6];
+                if (!acc[category]) acc[category] = [];
+                acc[category].push(`- ${content[7]}`);
+                return acc;
+            }, {});
+
+            dataContainer.innerHTML = `
+                <div class="grid-container">
+                    <div class="grid-item left">
+                        <div class="section-title">참여정보</div>
+                        <p><strong>• 프로그램명 :</strong> ${row[1]}</p>
+                        <p><strong>• 강사명 :</strong> ${row[2]}</p>
+                        <p><strong>• 수업일자 :</strong> ${row[3]}</p>
+                        <p><strong>• 수업목표 :</strong> ${row[6]}</p>
+                        <p><strong>• 참여학생(회원번호) :</strong> ${row[7]} (${row[8]})</p>
+                    </div>
+                    <div class="grid-item right">
+                        <div class="section-title">활동내용</div>
+                        ${Object.entries(groupedContent)
+                            .map(([category, activities]) => `<p>[${category}]<br>${activities.join('<br>')}</p>`)
+                            .join('')}
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-item left">
+                        <div class="section-title">활동분석</div>
+                        <div id="graph-container" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+                        <p style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <span>• 참여도 : ${row[9]}</span>
+                            <span>• 성취도 : ${row[10]}</span>
+                            <span>• 협력과 소통 : ${row[11]}</span>
+                            <span>• 자기 주도성 : ${row[12]}</span>
+                        </p>
+                    </div>
+                    <div class="grid-item right">
+                        <div class="section-title">피드백 및 안내</div>
+                        <div class="one-line-review">${row[13]}</div>
+                    </div>
+                </div>
+            `;
+        });
+    });
+
     summaryDropdown.addEventListener('change', () => {
         const selectedCriterion = summaryDropdown.options[summaryDropdown.selectedIndex];
         const selectedProgram = selectedCriterion.dataset.program;
@@ -122,7 +179,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         summaryInfo.innerHTML = `
             <div class="section-title">활동 종합 기준</div>
             <div style="padding: 15px 10px;">
-                <p><strong>• 프로그램명 :</strong> ${selectedCriterion.dataset.program}</p>
+                <p><strong>• 프로그램명 :</strong> ${selectedProgram}</p>
                 <p><strong>• 강사명 :</strong> ${selectedCriterion.dataset.teacher}</p>
                 <p><strong>• 종합기준 :</strong> ${selectedCriterion.value}</p>
                 <p><strong>• 시작일 :</strong> ${startDate}</p>
@@ -142,10 +199,10 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         const categories = ['참여도', '성취도', '협력과 소통', '자기 주도성'];
         const categoryIndices = [9, 10, 11, 12];
 
-        const datasets = categories.map((label, catIndex) => ({
+        const datasets = categories.map((label, i) => ({
             label,
-            data: programRows.map(row => scoreMapping[row[categoryIndices[catIndex]]?.trim()] || 0),
-            backgroundColor: `hsl(${catIndex * 90}, 70%, 70%)`
+            data: programRows.map(row => scoreMapping[row[categoryIndices[i]]?.trim()] || 0),
+            backgroundColor: `hsl(${i * 90}, 70%, 70%)`
         }));
 
         lineChartContainer.innerHTML = '';
@@ -161,17 +218,15 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
+                    legend: { position: 'top' }
                 },
                 scales: {
+                    x: { stacked: false },
                     y: {
                         min: 0,
                         max: 5,
-                        ticks: { stepSize: 1 }
-                    },
-                    x: {
-                        stacked: true
+                        ticks: { stepSize: 1 },
+                        stacked: false
                     }
                 }
             }
@@ -184,6 +239,6 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
         summaryHomeMessage.innerHTML = matchedSummaryRow ? `<p>${matchedSummaryRow[9]}</p>` : '내용 없음';
 
         summaryContainer.style.display = 'block';
-        dataContainer.innerHTML = '';
+        dataContainer.style.display = 'none';
     });
 });
