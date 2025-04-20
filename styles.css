@@ -1,443 +1,176 @@
+
 /* 전체 배경 이미지 적용 */
 body {
-    background-image: url('img/back.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: Arial, sans-serif;
+  background-image: url('img/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
 }
 
 /* 상단 로고 및 제목 */
 .logo-header {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 이 부분을 가운데 정렬로 수정 */
-    gap: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
 
 .logo {
-    height: 80px;
+  height: 80px;
 }
 
 .title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #EC8C59;
+  font-size: 22px;
+  font-weight: bold;
+  color: #EC8C59;
 }
 
 /* 검색창 스타일 */
 .search-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-    gap: 10px;
-    max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  gap: 10px;
+  max-width: 600px;
 }
 
-.search-box input {
-    width: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+.search-box input,
+.search-box button {
+  height: 40px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .search-box button {
-    padding: 10px 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 .search-box button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
-/* 드롭다운 스타일 */
-#dropdowns {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+/* 드롭다운 그룹 */
+#dropdown-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-#dropdowns select {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    font-size: 14px;
-    width: 200px;
+#dropdown-group select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  width: 200px;
 }
 
-/* 2X2 그리드 레이아웃 */
+/* 그리드 레이아웃 2x2 */
 .grid-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 900px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-/* 개별 섹션 스타일 */
-.section {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
+/* 제목 구분선 */
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0056b3;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  border-bottom: 3px solid #007BFF;
 }
 
-/* 활동평가 점수 정렬 */
+/* 점수 표 */
 .score-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: center;
 }
 
-/* 제목 스타일 */
-h3 {
-    font-size: 18px;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+/* 각 info box */
+.info-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: 0 0 5px rgba(0,0,0,0.08);
 }
 
-/* 입력 요소 및 버튼 공통 스타일 */
-input[type="text"],
-select,
-button {
-    height: 40px;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
+/* 요약 정보 */
+#summary-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-input[type="text"]:focus,
-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+#summary-info-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+#line-chart-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: center;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
-/* 데이터 컨테이너 스타일 */
+/* 데이터 출력 영역 */
 #data-container {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 /* 피드백 메시지 */
 #feedback {
-    color: red;
-    font-weight: bold;
-    margin-top: 10px;
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-/* 섹션 큰 제목 강조 스타일 */
-.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #0056b3;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #007BFF; /* 제목 아래 구분선 추가 */
-}
-
-/* 각 섹션의 내용 구분선 */
-.section {
-    border-bottom: 2px dashed #ccc; /* 섹션 간 구분을 위한 점선 추가 */
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-
-/* 마지막 섹션의 하단 구분선 제거 */
-.section:last-child {
-    border-bottom: none;
-}
-
-
-/* 하단 로고 스타일 */
+/* 하단 로고 */
 .footer-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0; /* 위아래 여백 추가 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
 }
 
 .footer-logo img {
-    width: 150px; /* 로고 이미지 크기 조정 (너무 크지 않은 적절한 크기) */
-    opacity: 0.8; /* 약간 투명도를 줘서 시선을 덜 끌게 조정 */
+  width: 150px;
+  opacity: 0.8;
 }
 
-/* 모바일에서의 로고 크기 조정 */
-@media screen and (max-width: 768px) {
-    .footer-logo img {
-        width: 120px; /* 모바일 환경에서는 더 작은 크기로 표시 */
-    }
-}
-
-/* 모바일 환경에서 한 줄 레이아웃으로 전환 */
-@media screen and (max-width: 768px) {
-    .grid-layout {
-        grid-template-columns: 1fr; /* 한 줄로 변경 */
-        padding: 10px;
-        gap: 15px;
-    }
-
-    .section {
-        padding: 10px;
-    }
-
-    .section-title {
-        font-size: 18px;
-    }
-
-.logo-header {
-    flex-direction: column; /* 로고와 제목 수직 정렬 유지 */
-    gap: 1px;              /* 간격 좁힘 */
-    text-align: center;
-    margin-bottom: 5px;   /* 하단 요소 간격 좁힘 */
-}
-
-.logo-header img.logo {
-    height: 100px; /* 로고 크기 키움 */
-}
-
-.title {
-    font-size: 20px; /* 제목 크기 조정 */
-    margin-top: 2px; /* 제목과 로고 사이 간격 좁힘 */
-}
-
-.search-box, #dropdowns {
-    flex-direction: column;
-    gap: 5px;
-    padding: 0 20px; /* 좌우 패딩을 20px로 늘림 (여백 확보) */
-    box-sizing: border-box;
-    max-width: 500px; /* 최대 너비 확장 */
-    margin: 0 auto; /* 가운데 정렬 */
-}
-
-.search-box input, 
-.search-box button, 
-#dropdowns select {
-    width: 100%; 
-    box-sizing: border-box;
-}
-
-
-    #data-container {
-        padding: 10px;
-    }
-}
-
-#graph-container {
-    width: 100%;
-    min-height: 250px; /* 그래프 최소 높이 */
-}
-
-
-
-#summary-info-container {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-#line-chart-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-
-/* 종합 정보 전체 박스 스타일 */
-#summary-container {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-/* 그래프 영역에 여백 및 배경 통일 */
-#line-chart-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
-}
-
-#line-chart-container {
-    display: flex;
-    justify-content: center;
-}
-
-/* ...기존 스타일들 유지... */
-
-@media (max-width: 768px) {
-  #dropdown-group {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #dropdown-group select {
-    width: 90%;
-    margin-bottom: 10px;  /* 👉 드롭다운 간 간격을 위해 추가 */
-  }
-}
-
-/* 2X2 그리드 레이아웃 */
-.grid-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 900px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-/* 개별 섹션 스타일 */
-.section {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-    border-bottom: 2px dashed #ccc;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-}
-
-.section:last-child {
-    border-bottom: none;
-}
-
-/* 활동평가 점수 정렬 */
-.score-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    text-align: center;
-}
-
-/* 제목 스타일 */
-h3 {
-    font-size: 18px;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-/* 섹션 큰 제목 강조 스타일 */
-.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #0056b3;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #007BFF;
-}
-
-/* 데이터 컨테이너 스타일 */
-#data-container {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-/* 피드백 메시지 */
-#feedback {
-    color: red;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* 요약 영역 */
-#summary-info-container {
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-#summary-container {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-#line-chart-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-}
-
-/* 그래프 컨테이너 */
-#graph-container {
-    width: 100%;
-    min-height: 250px;
-}
-
-/* 하단 로고 스타일 */
-.footer-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-}
-
-.footer-logo img {
-    width: 150px;
-    opacity: 0.8;
-}
-
-/* 모바일에서 로고 크기 축소 */
-@media screen and (max-width: 768px) {
-    .footer-logo img {
-        width: 120px;
-    }
-}
-
-/* 모바일 환경: grid-layout을 1단으로 */
+/* 모바일 대응 */
 @media screen and (max-width: 768px) {
   .grid-layout {
     grid-template-columns: 1fr;
     padding: 10px;
     gap: 15px;
-  }
-
-  .section {
-    padding: 10px;
   }
 
   .section-title {
@@ -461,36 +194,22 @@ h3 {
   }
 
   .search-box,
-  #dropdowns {
+  #dropdown-group {
     flex-direction: column;
     gap: 5px;
     padding: 0 20px;
-    box-sizing: border-box;
     max-width: 500px;
     margin: 0 auto;
   }
 
   .search-box input,
   .search-box button,
-  #dropdowns select {
+  #dropdown-group select {
     width: 100%;
     box-sizing: border-box;
   }
 
-  #data-container {
-    padding: 10px;
-  }
-}
-
-/* 드롭다운 그룹: 모바일에서 줄바꿈 정렬 */
-@media (max-width: 768px) {
-  #dropdown-group {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #dropdown-group select {
-    width: 90%;
-    margin-bottom: 10px;
+  .footer-logo img {
+    width: 120px;
   }
 }
