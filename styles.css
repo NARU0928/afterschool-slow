@@ -1,4 +1,3 @@
-
 /* 전체 배경 이미지 적용 */
 body {
   background-image: url('img/back.jpg');
@@ -27,7 +26,7 @@ body {
   color: #EC8C59;
   text-align: center;
   margin-top: 2px;
-  font-size: 22px; /* 기본: 모바일 */
+  font-size: 22px;
 }
 
 /* 데스크탑 스타일 */
@@ -74,12 +73,10 @@ body {
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 300px; /* 너비 축소 */
+  width: 300px;
 }
 
 .search-box button {
-  white-space: nowrap; /* 줄바꿈 방지 */
-  min-width: 60px;     /* 검색 버튼 최소 너비 보장 */
   height: 40px;
   padding: 8px 15px;
   background-color: #007BFF;
@@ -88,6 +85,8 @@ body {
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
+  min-width: 60px;
 }
 
 .search-box button:hover {
@@ -159,6 +158,26 @@ body {
   .section-title {
     font-size: 18px;
   }
+
+  .search-box,
+  #dropdown-group {
+    padding: 0 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .search-box input,
+  .search-box button,
+  #dropdown-group select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-logo img {
+    width: 120px;
+  }
 }
 
 /* 섹션 타이틀 */
@@ -170,17 +189,6 @@ body {
   margin-bottom: 4px;
   border-bottom: 3px solid #007BFF;
 }
-
-/* 종합 기준 제목과 내용 간격 균형 있게 조정 (더 정확한 버전) */
-#summary-info-container .section-title {
-  margin-bottom: 6px !important;
-}
-
-#summary-info-container .section-title + div {
-  margin-top: 6px !important;
-  padding-top: 0 !important;
-}
-
 
 /* 그래프 */
 #graph-container {
@@ -249,24 +257,43 @@ body {
   opacity: 0.8;
 }
 
+/* ===================================
+   ✅ 최종 디테일 반영된 스타일 정리
+   =================================== */
 @media (max-width: 768px) {
   #summary-info-container,
+  #summary-info-container .white-box,
   #line-chart-container {
-    box-shadow: none;
-    background-color: transparent;
-    padding: 10px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  #summary-info-container .white-box {
     background-color: transparent !important;
     box-shadow: none !important;
     border: none !important;
-    outline: none !important;
-    padding: 0 !important;
     border-radius: 0 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
   }
 }
 
+#summary-info-container > .section-title {
+  margin-bottom: 6px !important;
+}
 
+#summary-info-container > div:not(.section-title) {
+  margin-top: 6px !important;
+  padding-top: 0 !important;
+}
+
+#summary-info-container .white-box > div {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 769px) {
+  #summary-container .section-title {
+    padding-left: 20px;
+  }
+}
+
+.grid-layout > .grid-item {
+  padding-left: 20px;
+  padding-right: 20px;
+}
