@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,7 +12,9 @@
 <body>
     <!-- 상단 로고 및 프로그램 안내 -->
     <div class="logo-header">
-        <a href="/"><img src="img/title.png" alt="세상이음 교육센터 로고" class="logo" /></a>
+        <a href="/">
+            <img src="img/title.png" alt="세상이음 교육센터 로고" class="logo" />
+        </a>
         <h2 class="title">프로그램 활동안내</h2>
     </div>
 
@@ -26,7 +27,7 @@
     <!-- 피드백 메시지 -->
     <div id="feedback" style="text-align: center; color: red; margin: 10px 0;"></div>
 
-    <!-- 가로 정렬 드롭다운 3개 -->
+    <!-- 가로 정렬 드롭다운 -->
     <div id="dropdown-group" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
         <select id="program-dropdown" disabled>
             <option value="">프로그램명을 선택하세요</option>
@@ -39,15 +40,16 @@
         </select>
     </div>
 
-    <!-- 회차별 세부 내용 -->
+    <!-- 회차별 세부 정보 -->
     <div id="data-container" class="grid-layout"></div>
 
-    <!-- 종합 정보 상단 -->
+    <!-- 종합 정보 -->
     <div id="summary-container" style="display: none; max-width: 900px; margin: 0 auto;">
-        <div id="summary-info-container" class="summary-header-info" style="margin-bottom: 20px;"></div>
+        <div class="section-title">📘 활동 종합 기준</div>
+        <div id="summary-info-container" class="summary-header-info" style="background-color: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 0 4px rgba(0,0,0,0.1);"></div>
 
         <div class="section-title">📈 프로그램 기간 내 변화 그래프</div>
-        <div id="line-chart-container" style="min-height: 300px;"></div>
+        <div id="line-chart-container" style="min-height: 300px; margin: 0 auto;"></div>
 
         <div class="grid-layout" style="margin-top: 30px;">
             <div class="grid-item left">

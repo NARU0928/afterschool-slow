@@ -1,4 +1,9 @@
 
+// ✅ script.js 최종본: 회차 2x2 구조 복원 + 종합 날짜 비교 + 누락 차시 방지 + 그래프 중앙 정렬
+// 전체 코드 통합
+// 2025-04 기준 최신 기능 포함
+
+// [1] 데이터 호출 및 초기화
 document.getElementById('fetch-data').addEventListener('click', async () => {
     const personalNumber = document.getElementById('personal-number').value.trim();
     const feedback = document.getElementById('feedback');
@@ -154,12 +159,18 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     summaryDropdown.addEventListener('change', () => {
         const selected = summaryDropdown.options[summaryDropdown.selectedIndex];
         const selectedProgram = selected.dataset.program;
-        const startDate = selected.dataset.start;
-        const endDate = selected.dataset.end;
 
-        const programRows = filteredRows.filter(row =>
-            row[1] === selectedProgram && row[3] >= startDate && row[3] <= endDate
-        );
+        const toDate = (str) => {
+            const [m, d] = str.split('/');
+            return new Date(`2025-${m.padStart(2, '0')}-${d.padStart(2, '0')}`);
+        };
+        const start = toDate(selected.dataset.start);
+        const end = toDate(selected.dataset.end);
+
+        const programRows = filteredRows.filter(row => {
+            const current = toDate(row[3]);
+            return row[1] === selectedProgram && current >= start && current <= end;
+        });
 
         if (!programRows.length) {
             summaryContainer.style.display = 'none';
@@ -172,8 +183,8 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
                 <p><strong>• 프로그램명 :</strong> ${selected.dataset.program}</p>
                 <p><strong>• 강사명 :</strong> ${selected.dataset.teacher}</p>
                 <p><strong>• 종합기준 :</strong> ${selected.value}</p>
-                <p><strong>• 시작일 :</strong> ${startDate}</p>
-                <p><strong>• 종료일 :</strong> ${endDate}</p>
+                <p><strong>• 시작일 :</strong> ${selected.dataset.start}</p>
+                <p><strong>• 종료일 :</strong> ${selected.dataset.end}</p>
                 <p><strong>• 참여학생(회원번호) :</strong> ${selected.dataset.name} (${selected.dataset.pid})</p>
             </div>
         `;
@@ -233,7 +244,7 @@ document.getElementById('fetch-data').addEventListener('click', async () => {
     });
 });
 
-// 회차별 레이더그래프 렌더링 함수
+// 🔄 회차별 레이더 그래프
 function renderGraph(row) {
     const ctx = document.createElement("canvas");
     const graphContainer = document.getElementById("graph-container");
