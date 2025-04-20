@@ -219,12 +219,8 @@ body {
   opacity: 0.8;
 }
 
-/* 활동 종합 상단 박스 여백 조정 (회차 정보와 균형 맞춤) */
-#summary-container {
-  margin-top: 28px !important;
-}
-
-/* 타이틀 아래 간격 줄이기 */
-.common-section-box .section-title {
-  margin-bottom: 6px !important;
+/* 활동 종합 기준 내용 간 간격 조정 */
+.summary-header-info > div:not(.section-title) {
+  margin-top: 4px !important;
+  padding-top: 0 !important;
 }
